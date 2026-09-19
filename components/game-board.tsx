@@ -11,7 +11,11 @@ import { applyEffect, DECISIONS, generateSong, getCountry, getSeasonTitle, getSe
 type Phase = "intro" | "select" | "questions" | "results"
 type ActState = { countryId: string; song: Song; stats: Stats; decision: Decision }
 type Trophy = { year: number; countryId: string; position: number }
-type SeasonHistory = { year: number; entries: Entry[] }
+type SeasonHistory = {
+  year: number
+  hostId: string
+  entries: Entry[]
+}
 
 function HistoryModal({ seasons, onClose }: { seasons: SeasonHistory[]; onClose: () => void }) {
   return (
@@ -27,7 +31,7 @@ function HistoryModal({ seasons, onClose }: { seasons: SeasonHistory[]; onClose:
         <div className="space-y-5">
           {seasons.map((season) => (
             <section key={season.year}>
-              <h3 className="mb-2 text-sm font-bold text-white">{getSeasonTitle(year, host)}</h3>
+              <h3 className="mb-2 text-sm font-bold text-white">{getSeasonTitle(season.year, season.hostId)}</h3>
               <div className="space-y-2">
                 {season.entries.map((entry) => {
                   const country = getCountry(entry.countryId)
@@ -109,7 +113,10 @@ export function GameBoard() {
       const result = runContest({ participants: season.participants, songs: season.songs, managed: current.map((a) => ({ countryId: a.countryId, stats: a.stats })), hostId: host })
       const managedEntries = result.filter((entry) => entry.managed)
       setEntries(result)
-      setHistory((previous) => [...previous, { year, entries: managedEntries }])
+      setHistory((previous) => [
+        ...previous,
+        { year, hostId: host, entries: managedEntries }
+      ])
       setTrophies((prev) => [...prev, ...managedEntries.map((entry) => ({ year, countryId: entry.countryId, position: entry.qualified ? entry.position : 0 }))])
       const winner = result.find((entry) => entry.position === 1)
       setPendingHost(winner ? winner.countryId : host)
