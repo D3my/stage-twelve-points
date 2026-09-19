@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import { translations, type Language } from "@/lib/i18n"
 
 export const APP_VERSION = "1.0.1"
 
-const CHANGELOG = [
+const CHANGELOG = {
+  en: [
     {
       version: "1.0.1",
       date: "2026-09-19",
@@ -18,15 +20,36 @@ const CHANGELOG = [
     {
       version: "1.0.0",
       date: "2026-09-18",
+      changes: ["Initial playable version."],
+    },
+  ],
+  es: [
+    {
+      version: "1.0.1",
+      date: "2026-09-19",
       changes: [
-        "Initial playable version.",
-  
+        "Añadido el sistema de ciudades anfitrionas con un 95 % de probabilidad para la capital y un 5 % para una ciudad alternativa.",
+        "Añadida una excepción especial para que Burgas sea la ciudad anfitriona de Eurovisión 2027.",
+        "Actualizadas las capitales de los países y sus ciudades alternativas.",
+        "Añadidas las decisiones de puesta en escena y la progresión del concurso.",
       ],
     },
-]
+    {
+      version: "1.0.0",
+      date: "2026-09-18",
+      changes: ["Primera versión jugable."],
+    },
+  ],
+} as const
 
-export function ChangelogModal() {
+export function ChangelogModal({
+  language = "en",
+}: {
+  language?: Language
+}) {
   const [open, setOpen] = useState(false)
+  const t = translations[language]
+  const releases = CHANGELOG[language]
 
   return (
     <>
@@ -35,14 +58,14 @@ export function ChangelogModal() {
         onClick={() => setOpen(true)}
         className="text-xs text-white/40 transition-colors hover:text-white/70 hover:underline underline-offset-4"
       >
-        v{APP_VERSION} · Changelog
+        v{APP_VERSION} · {t.changelog}
       </button>
 
       {open && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Changelog"
+          aria-label={t.changelog}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
           onClick={() => setOpen(false)}
         >
@@ -53,11 +76,11 @@ export function ChangelogModal() {
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fuchsia-300">
-                  What&apos;s new
+                  {language === "en" ? "What's new" : "Novedades"}
                 </p>
 
                 <h2 className="text-xl font-black text-white">
-                  Changelog
+                  {t.changelog}
                 </h2>
               </div>
 
@@ -66,12 +89,12 @@ export function ChangelogModal() {
                 onClick={() => setOpen(false)}
                 className="rounded-lg border border-white/20 px-3 py-1.5 text-xs font-semibold text-white/70 transition-colors hover:border-white/40 hover:text-white"
               >
-                Close
+                {t.close}
               </button>
             </div>
 
             <div className="space-y-5">
-              {CHANGELOG.map((release) => (
+              {releases.map((release) => (
                 <section key={release.version}>
                   <div className="mb-2 flex items-center gap-3">
                     <h3 className="text-sm font-bold text-white">
