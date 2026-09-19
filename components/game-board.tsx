@@ -27,10 +27,7 @@ import {
 } from "@/lib/game"
 import {
   getCountryName,
-  getCityName,
-  getGenreName,
   getTranslatedSeasonTitle,
-  translateContestEvent,
 } from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
@@ -127,25 +124,17 @@ function HistoryModal({
                   {season.entries.map((entry) => {
                     const country = getCountry(entry.countryId)
                     const winner = entry.position === 1
-
                     const score = entry.qualified
                       ? entry.points
                       : entry.semiPoints
 
                     const placement = entry.qualified
                       ? "#" + entry.position
-                      : language === "en"
-                        ? "SF #" + entry.semiPosition
-                        : "SF #" + entry.semiPosition
+                      : "SF #" + entry.semiPosition
 
                     const countryName = getCountryName(
                       country.id,
                       country.name,
-                      language,
-                    )
-
-                    const genreName = getGenreName(
-                      entry.song.genre.name,
                       language,
                     )
 
@@ -178,8 +167,6 @@ function HistoryModal({
 
                             <div className="truncate text-xs text-white/70">
                               {entry.song.artist} · “{entry.song.title}”
-                              {" · "}
-                              {genreName}
                             </div>
                           </div>
 
@@ -476,6 +463,7 @@ export function GameBoard() {
     </button>
   )
 
+  // El selector de idioma solo se muestra en la pantalla inicial.
   const languageButton = (
     <button
       type="button"
@@ -586,7 +574,6 @@ export function GameBoard() {
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="flex justify-end gap-2">
-          {languageButton}
           {historyButton}
           {exitButton}
         </div>
@@ -614,7 +601,6 @@ export function GameBoard() {
         />
 
         {historyModal}
-        {languageModal}
       </div>
     )
   }
@@ -658,7 +644,6 @@ export function GameBoard() {
           </span>
 
           <div className="flex gap-2">
-            {languageButton}
             {historyButton}
             {exitButton}
           </div>
@@ -687,7 +672,6 @@ export function GameBoard() {
         </div>
 
         {historyModal}
-        {languageModal}
       </div>
     )
   }
@@ -696,7 +680,6 @@ export function GameBoard() {
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="flex justify-end gap-2">
-          {languageButton}
           {historyButton}
           {exitButton}
         </div>
@@ -709,7 +692,6 @@ export function GameBoard() {
         />
 
         {historyModal}
-        {languageModal}
       </div>
     )
   }
