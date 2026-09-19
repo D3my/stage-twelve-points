@@ -639,3 +639,8 @@ export const START_YEAR = 2027
 export const START_HOST = "at" // Austria hosts the 2027 contest in Vienna
 export const MIN_ROSTER = 1
 export const MAX_ROSTER = 4
+
+export function getSeasonTitle(year: number, hostId: string): string {
+  const host = getCountry(hostId)
+  return `${host.city} (${host.name}) ${year}`
+}

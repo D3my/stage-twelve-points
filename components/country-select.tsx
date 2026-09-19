@@ -47,7 +47,7 @@ export function CountrySelect({
     <div className="flex w-full flex-col gap-4">
       <div className="text-center">
         <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fuchsia-300/80">
-          Season {year} • {participants.length} countries competing
+        {getSeasonTitle(year, host)} • {participants.length} countries competing
         </div>
         <h2 className="mt-1 text-xl font-bold text-white">{title}</h2>
         <p className="mt-1 text-[12px] leading-snug text-white/50">{subtitle}</p>

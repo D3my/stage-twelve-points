@@ -6,7 +6,7 @@ import { CountrySelect } from "@/components/country-select"
 import { DecisionCard } from "@/components/decision-card"
 import { ResultsTable } from "@/components/results-table"
 import { StatBars } from "@/components/stat-bars"
-import { applyEffect, DECISIONS, generateSong, getCountry, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
+import { applyEffect, DECISIONS, generateSong, getCountry, getSeasonTitle, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
 
 type Phase = "intro" | "select" | "questions" | "results"
 type ActState = { countryId: string; song: Song; stats: Stats; decision: Decision }
@@ -27,7 +27,7 @@ function HistoryModal({ seasons, onClose }: { seasons: SeasonHistory[]; onClose:
         <div className="space-y-5">
           {seasons.map((season) => (
             <section key={season.year}>
-              <h3 className="mb-2 text-sm font-bold text-white">Season {season.year}</h3>
+              <h3 className="mb-2 text-sm font-bold text-white">{getSeasonTitle(year, host)}</h3>
               <div className="space-y-2">
                 {season.entries.map((entry) => {
                   const country = getCountry(entry.countryId)
@@ -163,7 +163,7 @@ export function GameBoard() {
   if (phase === "questions") {
     const act = acts[qIndex]
     if (!act) return null
-    return <div className="flex w-full flex-col gap-4"><div className="flex items-center justify-between gap-2"><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fuchsia-300/80">Season {year}</span><span className="text-[11px] font-medium text-white/40">{wins} {wins === 1 ? "win" : "wins"}</span><div className="flex gap-2">{historyButton}{exitButton}</div></div><DecisionCard key={act.countryId + "-" + qIndex} country={getCountry(act.countryId)} song={act.song} decision={act.decision} index={qIndex} total={acts.length} onChoose={answer} /><div className="rounded-xl border border-white/10 bg-white/[0.03] p-3"><div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-white/40">Current entry</div><StatBars stats={act.stats} compact /></div>{historyModal}</div>
+    return <div className="flex w-full flex-col gap-4"><div className="flex items-center justify-between gap-2"><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fuchsia-300/80">{getSeasonTitle(year, host)}</span><span className="text-[11px] font-medium text-white/40">{wins} {wins === 1 ? "win" : "wins"}</span><div className="flex gap-2">{historyButton}{exitButton}</div></div><DecisionCard key={act.countryId + "-" + qIndex} country={getCountry(act.countryId)} song={act.song} decision={act.decision} index={qIndex} total={acts.length} onChoose={answer} /><div className="rounded-xl border border-white/10 bg-white/[0.03] p-3"><div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-white/40">Current entry</div><StatBars stats={act.stats} compact /></div>{historyModal}</div>
   }
 
   if (phase === "results") {
