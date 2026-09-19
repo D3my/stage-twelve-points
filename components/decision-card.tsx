@@ -14,6 +14,7 @@ import {
   translateDecisionChoice,
   translateDecisionPrompt,
   translateDecisionRole,
+  getGenreName,
 } from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
@@ -68,18 +69,33 @@ export function DecisionCard({
 
   const t = translations[language]
 
-  const translatedRole = translateDecisionRole(decision.role, language)
-  const translatedPrompt = translateDecisionPrompt(decision.id, language)
+  const translatedRole = translateDecisionRole(
+    decision.id,
+    decision.role,
+    language,
+  )
+
+  const translatedPrompt = translateDecisionPrompt(
+    decision.id,
+    decision.prompt,
+    language,
+  )
+
   const translatedLeft = translateDecisionChoice(
     decision.id,
     "left",
+    decision.left.label,
     language,
   )
+
   const translatedRight = translateDecisionChoice(
     decision.id,
     "right",
+    decision.right.label,
     language,
   )
+
+  const translatedGenre = getGenreName(song.genre.name, language)
 
   const rotation = drag / 22
   const tilt = Math.max(-1, Math.min(1, drag / 120))
@@ -132,6 +148,7 @@ export function DecisionCard({
         className="relative w-full select-none"
         style={{ perspective: 1000 }}
       >
+        {/* Choice hint overlays */}
         <div
           className="pointer-events-none absolute left-3 top-3 z-10 rotate-[-8deg] rounded-md border-2 px-2 py-1 text-xs font-bold uppercase tracking-wider transition-opacity"
           style={{
@@ -169,6 +186,7 @@ export function DecisionCard({
         >
           <CountryBadge country={country} size={52} />
 
+          {/* The entry the director is shaping */}
           <div className="text-center">
             <div className="text-[13px] font-bold text-white">
               &ldquo;{song.title}&rdquo;
@@ -194,7 +212,7 @@ export function DecisionCard({
                   ★
                 </span>
               ) : null}{" "}
-              • {song.genre.name}
+              • {translatedGenre}
             </div>
           </div>
 
@@ -207,6 +225,7 @@ export function DecisionCard({
           </p>
         </div>
 
+        {/* Directional glow */}
         <div
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{

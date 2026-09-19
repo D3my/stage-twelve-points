@@ -4,9 +4,14 @@ import { CountryBadge } from "@/components/country-badge"
 import {
   getCountry,
   ordinal,
-  placementFlavor,
   type Entry,
 } from "@/lib/game"
+import {
+  getCountryName,
+  getGenreName,
+  getPlacementFlavor,
+  translateContestEvent,
+} from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
 function Row({
@@ -18,6 +23,12 @@ function Row({
 }) {
   const country = getCountry(entry.countryId)
   const t = translations[language]
+
+  const countryName = getCountryName(
+    country.id,
+    country.name,
+    language,
+  )
 
   return (
     <div
@@ -48,7 +59,7 @@ function Row({
       <CountryBadge country={country} size={24} />
 
       <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-white">
-        {country.name}
+        {countryName}
 
         {entry.managed ? (
           <span className="ml-1 text-[10px] text-fuchsia-300">
@@ -115,6 +126,17 @@ export function ResultsTable({
         {managed.map((e) => {
           const country = getCountry(e.countryId)
 
+          const countryName = getCountryName(
+            country.id,
+            country.name,
+            language,
+          )
+
+          const genreName = getGenreName(
+            e.song.genre.name,
+            language,
+          )
+
           return (
             <div
               key={e.countryId}
@@ -133,11 +155,11 @@ export function ResultsTable({
 
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[13px] font-bold text-white">
-                    {country.name}
+                    {countryName}
                   </div>
 
                   <div className="truncate text-[10px] text-white/45">
-                    &ldquo;{e.song.title}&rdquo; • {e.song.genre.name}
+                    &ldquo;{e.song.title}&rdquo; • {genreName}
                   </div>
                 </div>
 
@@ -164,7 +186,9 @@ export function ResultsTable({
                     }}
                   >
                     {e.position}
-                    {ordinal(e.position)}
+                    {language === "en"
+                      ? ordinal(e.position)
+                      : "º"}
                   </span>
 
                   <span className="text-[11px] text-white/50">
@@ -190,12 +214,20 @@ export function ResultsTable({
                   <span className="text-white/70">
                     {t.results.twist}
                   </span>{" "}
-                  {e.event.text}
+                  {translateContestEvent(
+                    e.event.id,
+                    e.event.text,
+                    language,
+                  )}
                 </p>
               ) : null}
 
               <p className="mt-1 text-[11px] leading-snug text-fuchsia-200/80">
-                {placementFlavor(e, finalists.length)}
+                {getPlacementFlavor(
+                  e,
+                  finalists.length,
+                  language,
+                )}
               </p>
             </div>
           )
