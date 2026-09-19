@@ -59,12 +59,6 @@ export function getStatShort(
 // ============================================================
 // Countries
 // ============================================================
-//
-// Country names in the original game are mostly already
-// internationally recognizable. We translate the ones whose
-// Spanish name differs significantly from English.
-//
-// ============================================================
 
 const COUNTRY_NAMES_ES: Record<string, string> = {
   se: "Suecia",
@@ -169,7 +163,7 @@ const CITY_NAMES_ES: Record<string, string> = {
   Marseille: "Marsella",
   Geneva: "Ginebra",
   Zurich: "Zúrich",
-  The Hague: "La Haya",
+  "The Hague": "La Haya",
   Seville: "Sevilla",
   Porto: "Oporto",
   Krakow: "Cracovia",
@@ -715,11 +709,6 @@ export function getTranslatedSeasonTitle(
 // ============================================================
 // Generic game text helper
 // ============================================================
-//
-// Useful for components that receive strings directly from game.ts.
-// It lets us gradually move components to ID-based translations without
-// having to duplicate the game data.
-//
 
 const GENERIC_ES: Record<string, string> = {
   Song: "Canción",
@@ -766,10 +755,6 @@ export function translateGameText(
 // ============================================================
 // Complete decision object helper
 // ============================================================
-//
-// Allows components to keep using the Decision objects from game.ts
-// while displaying translated text.
-//
 
 export function translateDecision(
   decision: {
@@ -793,7 +778,11 @@ export function translateDecision(
 
   return {
     ...decision,
-    role: translateDecisionRole(decision.id, decision.role, language),
+    role: translateDecisionRole(
+      decision.id,
+      decision.role,
+      language,
+    ),
     prompt: translateDecisionPrompt(
       decision.id,
       decision.prompt,
@@ -828,7 +817,11 @@ export function translateEvent(
 ) {
   return {
     ...event,
-    text: translateContestEvent(event.id, event.text, language),
+    text: translateContestEvent(
+      event.id,
+      event.text,
+      language,
+    ),
   }
 }
 
@@ -856,7 +849,10 @@ export function translateWithdrawal(
         language,
       ),
     },
-    reason: translateWithdrawalReason(withdrawal.reason, language),
+    reason: translateWithdrawalReason(
+      withdrawal.reason,
+      language,
+    ),
   }
 }
 
@@ -889,7 +885,10 @@ export function translateSong(
     ...song,
     genre: {
       ...song.genre,
-      name: getGenreName(song.genre.name, language),
+      name: getGenreName(
+        song.genre.name,
+        language,
+      ),
     },
   }
 }
@@ -909,10 +908,17 @@ export function translateCountry(
 ) {
   return {
     ...country,
-    name: getCountryName(country.id, country.name, language),
-    city: getCityName(country.city, language),
-    alternativeCities: country.alternativeCities.map((city) =>
-      getCityName(city, language),
+    name: getCountryName(
+      country.id,
+      country.name,
+      language,
+    ),
+    city: getCityName(
+      country.city,
+      language,
+    ),
+    alternativeCities: country.alternativeCities.map(
+      (city) => getCityName(city, language),
     ),
   }
 }
