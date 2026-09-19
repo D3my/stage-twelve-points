@@ -10,6 +10,11 @@ import {
   type Effect,
   type Song,
 } from "@/lib/game"
+import {
+  translateDecisionChoice,
+  translateDecisionPrompt,
+  translateDecisionRole,
+} from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
 function EffectHint({ effect }: { effect: Effect }) {
@@ -63,6 +68,19 @@ export function DecisionCard({
 
   const t = translations[language]
 
+  const translatedRole = translateDecisionRole(decision.role, language)
+  const translatedPrompt = translateDecisionPrompt(decision.id, language)
+  const translatedLeft = translateDecisionChoice(
+    decision.id,
+    "left",
+    language,
+  )
+  const translatedRight = translateDecisionChoice(
+    decision.id,
+    "right",
+    language,
+  )
+
   const rotation = drag / 22
   const tilt = Math.max(-1, Math.min(1, drag / 120))
 
@@ -105,8 +123,8 @@ export function DecisionCard({
         <span className="text-white/25">•</span>
 
         <span>
-          {t.decisionCard.act} {index + 1} {language === "en" ? "of" : "de"}{" "}
-          {total}
+          {t.decisionCard.act} {index + 1}{" "}
+          {language === "en" ? "of" : "de"} {total}
         </span>
       </div>
 
@@ -114,7 +132,6 @@ export function DecisionCard({
         className="relative w-full select-none"
         style={{ perspective: 1000 }}
       >
-        {/* choice hint overlays */}
         <div
           className="pointer-events-none absolute left-3 top-3 z-10 rotate-[-8deg] rounded-md border-2 px-2 py-1 text-xs font-bold uppercase tracking-wider transition-opacity"
           style={{
@@ -123,7 +140,7 @@ export function DecisionCard({
             opacity: hint === "left" ? 1 : 0,
           }}
         >
-          {decision.left.label}
+          {translatedLeft}
         </div>
 
         <div
@@ -134,7 +151,7 @@ export function DecisionCard({
             opacity: hint === "right" ? 1 : 0,
           }}
         >
-          {decision.right.label}
+          {translatedRight}
         </div>
 
         <div
@@ -152,7 +169,6 @@ export function DecisionCard({
         >
           <CountryBadge country={country} size={52} />
 
-          {/* the entry the director is shaping */}
           <div className="text-center">
             <div className="text-[13px] font-bold text-white">
               &ldquo;{song.title}&rdquo;
@@ -183,15 +199,14 @@ export function DecisionCard({
           </div>
 
           <div className="text-center text-[11px] font-semibold uppercase tracking-widest text-fuchsia-300/80">
-            {decision.role}
+            {translatedRole}
           </div>
 
           <p className="min-h-[72px] text-balance text-center text-[15px] leading-snug text-white">
-            {decision.prompt}
+            {translatedPrompt}
           </p>
         </div>
 
-        {/* directional glow */}
         <div
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
@@ -212,7 +227,7 @@ export function DecisionCard({
           className="flex flex-col items-center gap-1.5 rounded-xl border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-2.5 text-center transition-colors hover:bg-fuchsia-500/20"
         >
           <span className="text-[13px] font-semibold text-white">
-            {decision.left.label}
+            {translatedLeft}
           </span>
 
           <EffectHint effect={decision.left.effects} />
@@ -224,7 +239,7 @@ export function DecisionCard({
           className="flex flex-col items-center gap-1.5 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3 py-2.5 text-center transition-colors hover:bg-cyan-500/20"
         >
           <span className="text-[13px] font-semibold text-white">
-            {decision.right.label}
+            {translatedRight}
           </span>
 
           <EffectHint effect={decision.right.effects} />
