@@ -335,6 +335,59 @@ const LANG_TITLES: Record<string, string[]> = {
     "Taniec w Ciemności", "Czas Stoi", "Wolna", "Ostatni Raz", "Jak Sen",
     "Czerwone Niebo", "Moja Wolność", "Powiedz Jeszcze Raz", "Na Zawsze", "Bez Patrzenia Wstecz",
   ],
+  
+  en: [
+    "Wild Heart",
+    "Infinite Night",
+    "Eternal Fire",
+    "The Last Dance",
+    "Falling Stars",
+    "Eternal Love",
+    "Northern Light",
+    "Storm",
+    "My Flight",
+    "Whisper",
+    "Without Limits",
+    "Light and Shadow",
+    "Eyes of Fire",
+    "Inside Me",
+    "Beyond the Sky",
+    "Glass Heart",
+    "Southern Wind",
+    "Under the Stars",
+    "Once Again",
+    "Until Dawn",
+    "Burn With Me",
+    "My Freedom",
+    "Waves of the Sea",
+    "Reborn",
+    "One Last Time",
+    "Fearless",
+    "In the Silence",
+    "Rebel Soul",
+    "Where Are You",
+    "Love Returns",
+    "Summer Night",
+    "Golden Tears",
+    "Beyond the Sea",
+    "Lonely Star",
+    "Never Again",
+    "Heart on Fire",
+    "Dancing in the Dark",
+    "Between Two Worlds",
+    "After the Rain",
+    "Red Sky",
+    "Lost Time",
+    "Last Goodbye",
+    "Dream Again",
+    "Into the Unknown",
+    "Echoes",
+    "Chasing the Sun",
+    "Rise Again",
+    "Stay With Me",
+    "A Million Lights",
+    "Forever",
+  ]
 }
 
 // Per-language name pools. Artists are first + last combos, so names read as
@@ -402,13 +455,14 @@ export function generateSong(countryId: string, year: number): Song {
   const genre = pick(GENRES, rng)
   const artist = generateArtistName(c, rng)
   const nativeTitles = LANG_TITLES[c.lang]
+  const englishTitles = LANG_TITLES.en
   let title: string
   let native = false
-  if (nativeTitles && rng() < 0.55) {
+  if (nativeTitles && rng() < 0.33) {
     title = pick(nativeTitles, rng)
     native = true
   } else {
-    title = `${pick(TITLE_ADJ, rng)} ${pick(TITLE_NOUN, rng)}`
+    title = pick(englishTitles, rng)
   }
   const veteran = rng() < 0.02
   return { title, artist, genre, native, veteran }
