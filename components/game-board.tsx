@@ -668,6 +668,7 @@ export function GameBoard() {
           <StatBars
             stats={act.stats}
             compact
+            language={language}
           />
         </div>
 

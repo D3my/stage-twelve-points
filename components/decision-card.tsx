@@ -11,6 +11,7 @@ import {
   type Song,
 } from "@/lib/game"
 import {
+  getCountryName,
   translateDecisionChoice,
   translateDecisionPrompt,
   translateDecisionRole,
@@ -68,6 +69,12 @@ export function DecisionCard({
   const [hint, setHint] = useState<"left" | "right" | null>(null)
 
   const t = translations[language]
+
+  const translatedCountry = getCountryName(
+    country.id,
+    country.name,
+    language,
+  )
 
   const translatedRole = translateDecisionRole(
     decision.id,
@@ -134,7 +141,7 @@ export function DecisionCard({
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <div className="flex items-center gap-2 text-[11px] font-medium text-white/50">
-        <span>{country.name}</span>
+        <span>{translatedCountry}</span>
 
         <span className="text-white/25">•</span>
 
@@ -148,7 +155,6 @@ export function DecisionCard({
         className="relative w-full select-none"
         style={{ perspective: 1000 }}
       >
-        {/* Choice hint overlays */}
         <div
           className="pointer-events-none absolute left-3 top-3 z-10 rotate-[-8deg] rounded-md border-2 px-2 py-1 text-xs font-bold uppercase tracking-wider transition-opacity"
           style={{
@@ -186,7 +192,6 @@ export function DecisionCard({
         >
           <CountryBadge country={country} size={52} />
 
-          {/* The entry the director is shaping */}
           <div className="text-center">
             <div className="text-[13px] font-bold text-white">
               &ldquo;{song.title}&rdquo;
@@ -225,7 +230,6 @@ export function DecisionCard({
           </p>
         </div>
 
-        {/* Directional glow */}
         <div
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
