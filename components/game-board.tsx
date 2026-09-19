@@ -28,17 +28,20 @@ import { ChangelogModal } from "@/components/changelog-modal"
 import { translations, type Language } from "@/lib/i18n"
 
 type Phase = "intro" | "select" | "questions" | "results"
+
 type ActState = {
   countryId: string
   song: Song
   stats: Stats
   decision: Decision
 }
+
 type Trophy = {
   year: number
   countryId: string
   position: number
 }
+
 type SeasonHistory = {
   year: number
   hostId: string
@@ -102,6 +105,7 @@ function HistoryModal({
                   const score = entry.qualified
                     ? entry.points
                     : entry.semiPoints
+
                   const placement = entry.qualified
                     ? "#" + entry.position
                     : "SF #" + entry.semiPosition
@@ -163,8 +167,91 @@ function HistoryModal({
   )
 }
 
+function LanguageModal({
+  language,
+  setLanguage,
+  onClose,
+  t,
+}: {
+  language: Language
+  setLanguage: (language: Language) => void
+  onClose: () => void
+  t: (typeof translations)[Language]
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Language"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl border border-white/15 bg-[#160a20] p-5 shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fuchsia-300">
+              Language
+            </p>
+
+            <h2 className="text-xl font-black text-white">
+              Select language
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg border border-white/20 px-3 py-1.5 text-xs font-semibold text-white/70 hover:text-white"
+          >
+            {t.close}
+          </button>
+        </div>
+
+        <div className="space-y-2">
+          <button
+            type="button"
+            onClick={() => {
+              setLanguage("en")
+              onClose()
+            }}
+            className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left text-sm transition ${
+              language === "en"
+                ? "border-fuchsia-300/60 bg-fuchsia-400/10 text-white"
+                : "border-white/10 bg-white/[0.03] text-white/70 hover:border-white/20 hover:text-white"
+            }`}
+          >
+            <span className="text-xl">🇬🇧</span>
+            <span className="font-semibold">English</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setLanguage("es")
+              onClose()
+            }}
+            className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left text-sm transition ${
+              language === "es"
+                ? "border-fuchsia-300/60 bg-fuchsia-400/10 text-white"
+                : "border-white/10 bg-white/[0.03] text-white/70 hover:border-white/20 hover:text-white"
+            }`}
+          >
+            <span className="text-xl">🇪🇸</span>
+            <span className="font-semibold">Español</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function GameBoard() {
   const [language, setLanguage] = useState<Language>("en")
+  const [languageOpen, setLanguageOpen] = useState(false)
+
   const t = translations[language]
 
   const [phase, setPhase] = useState<Phase>("intro")
@@ -220,6 +307,7 @@ export function GameBoard() {
     setActs((prev) => {
       const next = [...prev]
       const act = next[qIndex]
+
       const choice =
         side === "left" ? act.decision.left : act.decision.right
 
@@ -304,6 +392,7 @@ export function GameBoard() {
     setTrophies([])
     setHistory([])
     setHistoryOpen(false)
+    setLanguageOpen(false)
   }
 
   const exitButton = (
@@ -326,6 +415,16 @@ export function GameBoard() {
     </button>
   )
 
+  const languageButton = (
+    <button
+      type="button"
+      onClick={() => setLanguageOpen(true)}
+      className="rounded-lg border border-fuchsia-300/40 px-3 py-1.5 text-xs font-semibold text-fuchsia-100 transition hover:border-fuchsia-200 hover:text-white"
+    >
+      🌐 {language === "en" ? "English" : "Español"}
+    </button>
+  )
+
   const historyModal = historyOpen ? (
     <HistoryModal
       seasons={history}
@@ -334,9 +433,22 @@ export function GameBoard() {
     />
   ) : null
 
+  const languageModal = languageOpen ? (
+    <LanguageModal
+      language={language}
+      setLanguage={setLanguage}
+      onClose={() => setLanguageOpen(false)}
+      t={t}
+    />
+  ) : null
+
   if (phase === "intro") {
     return (
       <div className="flex w-full flex-col items-center gap-5 text-center">
+        <div className="flex w-full justify-end">
+          {languageButton}
+        </div>
+
         <div className="flex -space-x-2">
           {["se", "it", "ua", "fi"].map((id) => (
             <CountryBadge
@@ -386,6 +498,8 @@ export function GameBoard() {
         >
           {t.startSeason} {START_YEAR}
         </button>
+
+        {languageModal}
       </div>
     )
   }
@@ -400,6 +514,7 @@ export function GameBoard() {
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="flex justify-end gap-2">
+          {languageButton}
           {historyButton}
           {exitButton}
         </div>
@@ -422,6 +537,7 @@ export function GameBoard() {
         />
 
         {historyModal}
+        {languageModal}
       </div>
     )
   }
@@ -445,6 +561,7 @@ export function GameBoard() {
           </span>
 
           <div className="flex gap-2">
+            {languageButton}
             {historyButton}
             {exitButton}
           </div>
@@ -469,6 +586,7 @@ export function GameBoard() {
         </div>
 
         {historyModal}
+        {languageModal}
       </div>
     )
   }
@@ -477,6 +595,7 @@ export function GameBoard() {
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="flex justify-end gap-2">
+          {languageButton}
           {historyButton}
           {exitButton}
         </div>
@@ -488,6 +607,7 @@ export function GameBoard() {
         />
 
         {historyModal}
+        {languageModal}
       </div>
     )
   }
