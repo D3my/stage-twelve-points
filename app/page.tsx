@@ -18,7 +18,7 @@ export default function Page() {
       </div>
       <div className="absolute bottom-1 left-0 right-0 flex justify-center pointer-events-none">
       <div className="pointer-events-auto">
-        <ChangelogModal language={language} />
+        <ChangelogModal />
       </div>
     </div>
     </main>

@@ -6,6 +6,7 @@ import { CountrySelect } from "@/components/country-select"
 import { DecisionCard } from "@/components/decision-card"
 import { ResultsTable } from "@/components/results-table"
 import { StatBars } from "@/components/stat-bars"
+import { ChangelogModal } from "@/components/changelog-modal"
 import {
   applyEffect,
   DECISIONS,
@@ -24,7 +25,6 @@ import {
   type Song,
   type Stats,
 } from "@/lib/game"
-import { ChangelogModal } from "@/components/changelog-modal"
 import { translations, type Language } from "@/lib/i18n"
 
 type Phase = "intro" | "select" | "questions" | "results"
@@ -178,11 +178,13 @@ function LanguageModal({
   onClose: () => void
   t: (typeof translations)[Language]
 }) {
+  const isEnglish = language === "en"
+
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Language"
+      aria-label={isEnglish ? "Language" : "Idioma"}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
       onClick={onClose}
     >
@@ -193,11 +195,11 @@ function LanguageModal({
         <div className="mb-5 flex items-center justify-between gap-3">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fuchsia-300">
-              Language
+              {isEnglish ? "Language" : "Idioma"}
             </p>
 
             <h2 className="text-xl font-black text-white">
-              Select language
+              {isEnglish ? "Select language" : "Selecciona el idioma"}
             </h2>
           </div>
 
@@ -442,6 +444,8 @@ export function GameBoard() {
     />
   ) : null
 
+  const changelog = <ChangelogModal language={language} />
+
   if (phase === "intro") {
     return (
       <div className="flex w-full flex-col items-center gap-5 text-center">
@@ -499,6 +503,10 @@ export function GameBoard() {
           {t.startSeason} {START_YEAR}
         </button>
 
+        <div className="pt-1">
+          {changelog}
+        </div>
+
         {languageModal}
       </div>
     )
@@ -534,6 +542,7 @@ export function GameBoard() {
           initial={stillIn}
           confirmLabel={t.countrySelect.enterRehearsals}
           onConfirm={beginSeason}
+          language={language}
         />
 
         {historyModal}
@@ -575,6 +584,7 @@ export function GameBoard() {
           index={qIndex}
           total={acts.length}
           onChoose={answer}
+          language={language}
         />
 
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
@@ -604,6 +614,7 @@ export function GameBoard() {
           entries={entries}
           year={year}
           onContinue={nextSeason}
+          language={language}
         />
 
         {historyModal}
