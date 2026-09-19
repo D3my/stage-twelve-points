@@ -27,6 +27,7 @@ export function CountrySelect({
   subtitle: string
   participants: Country[]
   songs: Record<string, Song>
+  host : string
   withdrawals: Withdrawal[]
   initial?: string[]
   confirmLabel: string
