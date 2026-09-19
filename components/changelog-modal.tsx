@@ -45,22 +45,18 @@ const CHANGELOG = {
 } as const
 
 export function ChangelogModal({
-  language = "en",
+  language,
 }: {
-  language?: Language
+  language: Language
 }) {
   const [open, setOpen] = useState(false)
+
+  const isSpanish = language === "es"
   const t = translations[language]
 
-  const releases =
-    language === "es"
-      ? CHANGELOG.es
-      : CHANGELOG.en
-
-  const whatsNew =
-    language === "es"
-      ? "Novedades"
-      : "What's new"
+  const releases = isSpanish
+    ? CHANGELOG.es
+    : CHANGELOG.en
 
   return (
     <>
@@ -87,7 +83,7 @@ export function ChangelogModal({
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fuchsia-300">
-                  {whatsNew}
+                  {isSpanish ? "Novedades" : "What's new"}
                 </p>
 
                 <h2 className="text-xl font-black text-white">
