@@ -13,6 +13,7 @@ import {
 
 export function CountrySelect({
   year,
+  host,
   title,
   subtitle,
   participants,
@@ -23,11 +24,11 @@ export function CountrySelect({
   onConfirm,
 }: {
   year: number
+  host: string
   title: string
   subtitle: string
   participants: Country[]
   songs: Record<string, Song>
-  host : string
   withdrawals: Withdrawal[]
   initial?: string[]
   confirmLabel: string

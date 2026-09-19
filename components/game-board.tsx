@@ -164,7 +164,7 @@ export function GameBoard() {
   if (phase === "select") {
     const isFirst = roster.length === 0
     const stillIn = roster.filter((id) => season.participants.some((country) => country.id === id))
-    return <div className="flex w-full flex-col gap-3"><div className="flex justify-end gap-2">{historyButton}{exitButton}</div><CountrySelect year={year} title={isFirst ? "Choose Your Countries" : "Next Season"} subtitle={isFirst ? "Select 1 to 4 countries to direct into this year's contest." : "Keep your roster or swap in new countries for the coming year."} participants={season.participants} songs={season.songs} withdrawals={season.withdrawals} initial={stillIn} confirmLabel="Enter the Rehearsals" onConfirm={beginSeason} />{historyModal}</div>
+    return <div className="flex w-full flex-col gap-3"><div className="flex justify-end gap-2">{historyButton}{exitButton}</div><CountrySelect year={year} host={host} title={isFirst ? "Choose Your Countries" : "Next Season"} subtitle={isFirst ? "Select 1 to 4 countries to direct into this year's contest." : "Keep your roster or swap in new countries for the coming year."} participants={season.participants} songs={season.songs} withdrawals={season.withdrawals} initial={stillIn} confirmLabel="Enter the Rehearsals" onConfirm={beginSeason} />{historyModal}</div>
   }
 
   if (phase === "questions") {
