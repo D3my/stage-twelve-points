@@ -73,63 +73,64 @@ export type Country = {
 
 // Only EBU / Eurovision-participating countries can be selected.
 export const COUNTRIES: Country[] = [
+
   { id: "se", name: "Sweden", code: "SWE", colors: ["#006aa7", "#fecc00"], strength: 80, bloc: "nordic", city: "Stockholm", alternativeCities: ["Gothenburg", "Malmö", "Uppsala"], lang: "sv" },
 
-  { id: "it", name: "Italy", code: "ITA", colors: ["#008c45", "#cd212a"], strength: 76, bloc: "south", city: "Turin", alternativeCities: ["Milan", "Rome", "Bologna"], lang: "it" },
+  { id: "it", name: "Italy", code: "ITA", colors: ["#008c45", "#cd212a"], strength: 76, bloc: "south", city: "Rome", alternativeCities: ["Milan", "Naples", "Turin"], lang: "it" },
 
-  { id: "ua", name: "Ukraine", code: "UKR", colors: ["#0057b7", "#ffd700"], strength: 74, bloc: "east", city: "Kyiv", alternativeCities: ["Lviv", "Odesa", "Kharkiv"], lang: "uk" },
+  { id: "ua", name: "Ukraine", code: "UKR", colors: ["#0057b7", "#ffd700"], strength: 74, bloc: "east", city: "Kyiv", alternativeCities: ["Kharkiv", "Odesa", "Lviv"], lang: "uk" },
 
-  { id: "fi", name: "Finland", code: "FIN", colors: ["#003580", "#ffffff"], strength: 70, bloc: "nordic", city: "Helsinki", alternativeCities: ["Tampere", "Turku", "Espoo"], lang: "fi" },
+  { id: "fi", name: "Finland", code: "FIN", colors: ["#003580", "#ffffff"], strength: 70, bloc: "nordic", city: "Helsinki", alternativeCities: ["Espoo", "Tampere", "Turku"], lang: "fi" },
 
-  // { id: "il", name: "Israel", code: "ISR", colors: ["#0038b8", "#ffffff"], strength: 70, bloc: "south", city: "Tel Aviv", alternativeCities: ["Jerusalem", "Haifa", "Eilat"], lang: "default" },
+  // { id: "il", name: "Israel", code: "ISR", colors: ["#0038b8", "#ffffff"], strength: 70, bloc: "south", city: "Jerusalem", alternativeCities: ["Tel Aviv", "Haifa", "Eilat"], lang: "default" },
 
-  { id: "ch", name: "Switzerland", code: "SUI", colors: ["#d52b1e", "#ffffff"], strength: 68, bloc: "west", city: "Basel", alternativeCities: ["Zurich", "Geneva", "Lausanne"], lang: "de" },
+  { id: "ch", name: "Switzerland", code: "SUI", colors: ["#d52b1e", "#ffffff"], strength: 68, bloc: "west", city: "Bern", alternativeCities: ["Zurich", "Geneva", "Basel"], lang: "de" },
 
-  { id: "fr", name: "France", code: "FRA", colors: ["#0055a4", "#ef4135"], strength: 66, bloc: "west", city: "Paris", alternativeCities: ["Lyon", "Marseille", "Lille"], lang: "fr" },
+  { id: "fr", name: "France", code: "FRA", colors: ["#0055a4", "#ef4135"], strength: 66, bloc: "west", city: "Paris", alternativeCities: ["Marseille", "Lyon", "Toulouse"], lang: "fr" },
 
-  { id: "nl", name: "Netherlands", code: "NED", colors: ["#ae1c28", "#21468b"], strength: 66, bloc: "west", city: "Rotterdam", alternativeCities: ["Amsterdam", "The Hague", "Utrecht"], lang: "nl" },
+  { id: "nl", name: "Netherlands", code: "NED", colors: ["#ae1c28", "#21468b"], strength: 66, bloc: "west", city: "Amsterdam", alternativeCities: ["Rotterdam", "The Hague", "Utrecht"], lang: "nl" },
 
   { id: "hr", name: "Croatia", code: "CRO", colors: ["#ff0000", "#171796"], strength: 66, bloc: "balkan", city: "Zagreb", alternativeCities: ["Split", "Rijeka", "Osijek"], lang: "hr" },
 
   { id: "no", name: "Norway", code: "NOR", colors: ["#ba0c2f", "#00205b"], strength: 62, bloc: "nordic", city: "Oslo", alternativeCities: ["Bergen", "Trondheim", "Stavanger"], lang: "no" },
 
-  { id: "au", name: "Australia", code: "AUS", colors: ["#00843d", "#ffcd00"], strength: 62, bloc: "world", city: "Sydney", alternativeCities: ["Melbourne", "Brisbane", "Perth"], lang: "en" },
+  { id: "au", name: "Australia", code: "AUS", colors: ["#00843d", "#ffcd00"], strength: 62, bloc: "world", city: "Canberra", alternativeCities: ["Sydney", "Melbourne", "Brisbane"], lang: "en" },
 
-  { id: "at", name: "Austria", code: "AUT", colors: ["#ed2939", "#ffffff"], strength: 62, bloc: "west", city: "Vienna", alternativeCities: ["Salzburg", "Graz", "Innsbruck"], lang: "de" },
+  { id: "at", name: "Austria", code: "AUT", colors: ["#ed2939", "#ffffff"], strength: 62, bloc: "west", city: "Vienna", alternativeCities: ["Graz", "Linz", "Salzburg"], lang: "de" },
 
   { id: "gr", name: "Greece", code: "GRE", colors: ["#0d5eaf", "#ffffff"], strength: 60, bloc: "south", city: "Athens", alternativeCities: ["Thessaloniki", "Patras", "Heraklion"], lang: "el" },
 
-  { id: "ee", name: "Estonia", code: "EST", colors: ["#0072ce", "#000000"], strength: 60, bloc: "baltic", city: "Tallinn", alternativeCities: ["Tartu", "Pärnu", "Narva"], lang: "default" },
+  { id: "ee", name: "Estonia", code: "EST", colors: ["#0072ce", "#000000"], strength: 60, bloc: "baltic", city: "Tallinn", alternativeCities: ["Tartu", "Narva", "Pärnu"], lang: "default" },
 
-  { id: "es", name: "Spain", code: "ESP", colors: ["#aa151b", "#f1bf00"], strength: 58, bloc: "south", city: "Madrid", alternativeCities: ["Barcelona", "Seville", "Valencia"], lang: "es" },
+  { id: "es", name: "Spain", code: "ESP", colors: ["#aa151b", "#f1bf00"], strength: 58, bloc: "south", city: "Madrid", alternativeCities: ["Barcelona", "Valencia", "Seville"], lang: "es" },
 
   { id: "pt", name: "Portugal", code: "POR", colors: ["#006600", "#ff0000"], strength: 58, bloc: "south", city: "Lisbon", alternativeCities: ["Porto", "Braga", "Coimbra"], lang: "pt" },
 
-  { id: "be", name: "Belgium", code: "BEL", colors: ["#000000", "#fdda24"], strength: 58, bloc: "west", city: "Brussels", alternativeCities: ["Antwerp", "Ghent", "Liège"], lang: "fr" },
+  { id: "be", name: "Belgium", code: "BEL", colors: ["#000000", "#fdda24"], strength: 58, bloc: "west", city: "Brussels", alternativeCities: ["Antwerp", "Ghent", "Bruges"], lang: "fr" },
 
   { id: "cy", name: "Cyprus", code: "CYP", colors: ["#d57800", "#ffffff"], strength: 58, bloc: "south", city: "Nicosia", alternativeCities: ["Limassol", "Larnaca", "Paphos"], lang: "el" },
 
   { id: "az", name: "Azerbaijan", code: "AZE", colors: ["#00b5e2", "#ef3340"], strength: 56, bloc: "east", city: "Baku", alternativeCities: ["Ganja", "Sumqayit", "Gabala"], lang: "default" },
 
-  { id: "am", name: "Armenia", code: "ARM", colors: ["#d90012", "#0033a0"], strength: 56, bloc: "east", city: "Yerevan", alternativeCities: ["Gyumri", "Vanadzor", "Dilijan"], lang: "default" },
+  { id: "am", name: "Armenia", code: "ARM", colors: ["#d90012", "#0033a0"], strength: 56, bloc: "east", city: "Yerevan", alternativeCities: ["Gyumri", "Vanadzor", "Kapan"], lang: "default" },
 
   { id: "lt", name: "Lithuania", code: "LTU", colors: ["#fdb913", "#006a44"], strength: 56, bloc: "baltic", city: "Vilnius", alternativeCities: ["Kaunas", "Klaipėda", "Šiauliai"], lang: "default" },
 
   { id: "rs", name: "Serbia", code: "SRB", colors: ["#c6363c", "#0c4076"], strength: 56, bloc: "balkan", city: "Belgrade", alternativeCities: ["Novi Sad", "Niš", "Kragujevac"], lang: "sr" },
 
-  { id: "is", name: "Iceland", code: "ISL", colors: ["#02529c", "#dc1e35"], strength: 56, bloc: "nordic", city: "Reykjavik", alternativeCities: ["Akureyri", "Kópavogur", "Hafnarfjörður"], lang: "default" },
+  { id: "is", name: "Iceland", code: "ISL", colors: ["#02529c", "#dc1e35"], strength: 56, bloc: "nordic", city: "Reykjavik", alternativeCities: ["Kópavogur", "Hafnarfjörður", "Akureyri"], lang: "default" },
 
   { id: "md", name: "Moldova", code: "MDA", colors: ["#0046ae", "#ffd200"], strength: 56, bloc: "east", city: "Chisinau", alternativeCities: ["Bălți", "Tiraspol", "Cahul"], lang: "default" },
 
-  { id: "gb", name: "United Kingdom", code: "GBR", colors: ["#012169", "#c8102e"], strength: 54, bloc: "west", city: "London", alternativeCities: ["Manchester", "Birmingham", "Liverpool"], lang: "en" },
+  { id: "gb", name: "United Kingdom", code: "GBR", colors: ["#012169", "#c8102e"], strength: 54, bloc: "west", city: "London", alternativeCities: ["Birmingham", "Manchester", "Liverpool"], lang: "en" },
 
   { id: "ie", name: "Ireland", code: "IRL", colors: ["#169b62", "#ff883e"], strength: 54, bloc: "west", city: "Dublin", alternativeCities: ["Cork", "Galway", "Limerick"], lang: "en" },
 
   { id: "si", name: "Slovenia", code: "SLO", colors: ["#005ce6", "#ed1c24"], strength: 54, bloc: "balkan", city: "Ljubljana", alternativeCities: ["Maribor", "Koper", "Celje"], lang: "default" },
 
-  { id: "de", name: "Germany", code: "GER", colors: ["#000000", "#dd0000"], strength: 52, bloc: "west", city: "Hamburg", alternativeCities: ["Berlin", "Munich", "Cologne"], lang: "de" },
+  { id: "de", name: "Germany", code: "GER", colors: ["#000000", "#dd0000"], strength: 52, bloc: "west", city: "Berlin", alternativeCities: ["Hamburg", "Munich", "Cologne"], lang: "de" },
 
-  { id: "pl", name: "Poland", code: "POL", colors: ["#dc143c", "#ffffff"], strength: 52, bloc: "east", city: "Warsaw", alternativeCities: ["Krakow", "Gdańsk", "Wrocław"], lang: "pl" },
+  { id: "pl", name: "Poland", code: "POL", colors: ["#dc143c", "#ffffff"], strength: 52, bloc: "east", city: "Warsaw", alternativeCities: ["Krakow", "Wrocław", "Gdańsk"], lang: "pl" },
 
   { id: "cz", name: "Czechia", code: "CZE", colors: ["#11457e", "#d7141a"], strength: 52, bloc: "east", city: "Prague", alternativeCities: ["Brno", "Ostrava", "Plzeň"], lang: "default" },
 
@@ -143,27 +144,27 @@ export const COUNTRIES: Country[] = [
 
   { id: "sm", name: "San Marino", code: "SMR", colors: ["#5eb6e4", "#ffffff"], strength: 42, bloc: "south", city: "San Marino", alternativeCities: ["Serravalle", "Borgo Maggiore", "Domagnano"], lang: "it" },
 
-  { id: "bg", name: "Bulgaria", code: "BUL", colors: ["#00966e", "#d62612"], strength: 60, bloc: "east", city: "Sofia", alternativeCities: ["Burgas", "Varna", "Plovdiv"], lang: "default" },
+  { id: "bg", name: "Bulgaria", code: "BUL", colors: ["#00966e", "#d62612"], strength: 60, bloc: "east", city: "Sofia", alternativeCities: ["Plovdiv", "Varna", "Burgas"], lang: "default" },
 
   { id: "dk", name: "Denmark", code: "DEN", colors: ["#c8102e", "#ffffff"], strength: 62, bloc: "nordic", city: "Copenhagen", alternativeCities: ["Aarhus", "Odense", "Aalborg"], lang: "default" },
 
   { id: "lu", name: "Luxembourg", code: "LUX", colors: ["#ed2939", "#ffffff"], strength: 48, bloc: "west", city: "Luxembourg City", alternativeCities: ["Esch-sur-Alzette", "Differdange", "Dudelange"], lang: "default" },
 
-  { id: "me", name: "Montenegro", code: "MNE", colors: ["#c8102e", "#d4af37"], strength: 48, bloc: "balkan", city: "Podgorica", alternativeCities: ["Budva", "Bar", "Kotor"], lang: "default" },
+  { id: "me", name: "Montenegro", code: "MNE", colors: ["#c8102e", "#d4af37"], strength: 48, bloc: "balkan", city: "Podgorica", alternativeCities: ["Nikšić", "Budva", "Bar"], lang: "default" },
 
-  { id: "ro", name: "Romania", code: "ROU", colors: ["#002b7f", "#fcd116"], strength: 58, bloc: "east", city: "Bucharest", alternativeCities: ["Cluj-Napoca", "Timișoara", "Constanța"], lang: "default" },
+  { id: "ro", name: "Romania", code: "ROU", colors: ["#002b7f", "#fcd116"], strength: 58, bloc: "east", city: "Bucharest", alternativeCities: ["Cluj-Napoca", "Timișoara", "Iași"], lang: "default" },
 
   { id: "mk", name: "North Macedonia", code: "MKD", colors: ["#d20000", "#ffe600"], strength: 48, bloc: "balkan", city: "Skopje", alternativeCities: ["Ohrid", "Bitola", "Tetovo"], lang: "default" },
 
-  { id: "sk", name: "Slovakia", code: "SVK", colors: ["#0b4ea2", "#ee1c25"], strength: 50, bloc: "east", city: "Bratislava", alternativeCities: ["Košice", "Žilina", "Banská Bystrica"], lang: "default" },
+  { id: "sk", name: "Slovakia", code: "SVK", colors: ["#0b4ea2", "#ee1c25"], strength: 50, bloc: "east", city: "Bratislava", alternativeCities: ["Košice", "Prešov", "Žilina"], lang: "default" },
 
   { id: "hu", name: "Hungary", code: "HUN", colors: ["#ce2939", "#477050"], strength: 52, bloc: "east", city: "Budapest", alternativeCities: ["Debrecen", "Szeged", "Pécs"], lang: "default" },
 
   { id: "ba", name: "Bosnia and Herzegovina", code: "BIH", colors: ["#002f6c", "#f5f5f5"], strength: 48, bloc: "balkan", city: "Sarajevo", alternativeCities: ["Banja Luka", "Mostar", "Tuzla"], lang: "default" },
 
   // New EBU member / Eurovision participant confirmed for 2027
+  // { id: "ca", name: "Canada", code: "CAN", colors: ["#ff0000", "#ffffff"], strength: 60, bloc: "world", city: "Ottawa", alternativeCities: ["Toronto", "Montreal", "Vancouver"], lang: "en" },
 
-  //{ id: "ca", name: "Canada", code: "CAN", colors: ["#ff0000", "#ffffff"], strength: 60, bloc: "world", city: "Ottawa", alternativeCities: ["Toronto", "Montreal", "Vancouver"], lang: "en" },
 ]
 
 export function getCountry(id: string): Country {
@@ -974,7 +975,7 @@ export function getHostCity(countryId: string, year: number): string {
 
   const rng = mulberry32(hashSeed(`host-city-${countryId}-${year}`))
 
-  if (rng() < 0.05) {
+  if (rng() < 0.90) {
     return pick(alternatives, rng)
   }
 
