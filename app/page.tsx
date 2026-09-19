@@ -16,11 +16,11 @@ export default function Page() {
       <div className="relative z-10 w-full max-w-sm">
         <GameBoard />
       </div>
-      <div className="absolute bottom-0 left-0 right-0 translate-y-2 flex justify-center pointer-events-none">
-        <div className="pointer-events-auto">
-          <ChangelogModal />
-        </div>
+      <div className="absolute bottom-1 left-0 right-0 flex justify-center pointer-events-none">
+      <div className="pointer-events-auto">
+        <ChangelogModal />
       </div>
+    </div>
     </main>
   )
 }
