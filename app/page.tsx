@@ -16,7 +16,7 @@ export default function Page() {
       <div className="relative z-10 w-full max-w-sm">
         <GameBoard />
       </div>
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+      <div className="fixed bottom-4 right-4 z-40">
         <ChangelogModal />
       </div>
     </main>
