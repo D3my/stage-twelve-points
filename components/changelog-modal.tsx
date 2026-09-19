@@ -2,36 +2,27 @@
 
 import { useState } from "react"
 
-export const APP_VERSION = "0.3.0"
+export const APP_VERSION = "1.0.1"
 
 const CHANGELOG = [
-  {
-    version: "0.3.0",
-    date: "2026-09-19",
-    changes: [
-      "Added host city system with 95% capital / 5% alternative city selection.",
-      "Added special host city exception for Eurovision 2027 in Burgas.",
-      "Updated country capitals and alternative cities.",
-      "Improved artist history and returning artist system.",
-    ],
-  },
-  {
-    version: "0.2.0",
-    date: "2026-09-18",
-    changes: [
-      "Added multiple participating countries.",
-      "Added song and artist generation.",
-      "Added staging decisions and contest progression.",
-    ],
-  },
-  {
-    version: "0.1.0",
-    date: "2026-09-17",
-    changes: [
-      "Initial playable version.",
-      "Created the Eurovision Stage Director game.",
-    ],
-  },
+    {
+      version: "1.0.1",
+      date: "2026-09-19",
+      changes: [
+        "Added host city system with 95% capital / 5% alternative city selection.",
+        "Added special host city exception for Eurovision 2027 in Burgas.",
+        "Updated country capitals and alternative cities.",
+        "Added staging decisions and contest progression.",
+      ],
+    },
+    {
+      version: "1.0.0",
+      date: "2026-09-18",
+      changes: [
+        "Initial playable version.",
+  
+      ],
+    },
 ]
 
 export function ChangelogModal() {
