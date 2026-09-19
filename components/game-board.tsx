@@ -25,6 +25,13 @@ import {
   type Song,
   type Stats,
 } from "@/lib/game"
+import {
+  getCountryName,
+  getCityName,
+  getGenreName,
+  getTranslatedSeasonTitle,
+  translateContestEvent,
+} from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
 type Phase = "intro" | "select" | "questions" | "results"
@@ -53,10 +60,12 @@ function HistoryModal({
   seasons,
   onClose,
   t,
+  language,
 }: {
   seasons: SeasonHistory[]
   onClose: () => void
   t: (typeof translations)[Language]
+  language: Language
 }) {
   return (
     <div
@@ -91,76 +100,112 @@ function HistoryModal({
         </div>
 
         <div className="space-y-5">
-          {seasons.map((season) => (
-            <section key={season.year}>
-              <h3 className="mb-2 text-sm font-bold text-white">
-                {season.hostCity} ({getCountry(season.hostId)?.name}){" "}
-                {season.year}
-              </h3>
+          {seasons.map((season) => {
+            const host = getCountry(season.hostId)
 
-              <div className="space-y-2">
-                {season.entries.map((entry) => {
-                  const country = getCountry(entry.countryId)
-                  const winner = entry.position === 1
-                  const score = entry.qualified
-                    ? entry.points
-                    : entry.semiPoints
+            const seasonTitle =
+              language === "en"
+                ? `${season.hostCity} (${host.name}) ${season.year}`
+                : getTranslatedSeasonTitle(
+                    season.year,
+                    getCountryName(
+                      host.id,
+                      host.name,
+                      language,
+                    ),
+                    season.hostCity,
+                    language,
+                  )
 
-                  const placement = entry.qualified
-                    ? "#" + entry.position
-                    : "SF #" + entry.semiPosition
+            return (
+              <section key={season.year}>
+                <h3 className="mb-2 text-sm font-bold text-white">
+                  {seasonTitle}
+                </h3>
 
-                  return (
-                    <div
-                      key={entry.countryId}
-                      className={
-                        winner
-                          ? "rounded-xl border border-amber-300/70 bg-amber-400/15 p-3"
-                          : "rounded-xl border border-white/10 bg-white/[0.03] p-3"
-                      }
-                    >
-                      <div className="flex items-start gap-3">
-                        <CountryBadge country={country} size={32} />
+                <div className="space-y-2">
+                  {season.entries.map((entry) => {
+                    const country = getCountry(entry.countryId)
+                    const winner = entry.position === 1
 
-                        <div className="min-w-0 flex-1">
-                          <div
-                            className={
-                              winner
-                                ? "font-bold text-amber-200"
-                                : "font-bold text-white"
-                            }
-                          >
-                            {winner ? "🏆 " : ""}
-                            {country.name}
+                    const score = entry.qualified
+                      ? entry.points
+                      : entry.semiPoints
+
+                    const placement = entry.qualified
+                      ? "#" + entry.position
+                      : language === "en"
+                        ? "SF #" + entry.semiPosition
+                        : "SF #" + entry.semiPosition
+
+                    const countryName = getCountryName(
+                      country.id,
+                      country.name,
+                      language,
+                    )
+
+                    const genreName = getGenreName(
+                      entry.song.genre.name,
+                      language,
+                    )
+
+                    return (
+                      <div
+                        key={entry.countryId}
+                        className={
+                          winner
+                            ? "rounded-xl border border-amber-300/70 bg-amber-400/15 p-3"
+                            : "rounded-xl border border-white/10 bg-white/[0.03] p-3"
+                        }
+                      >
+                        <div className="flex items-start gap-3">
+                          <CountryBadge
+                            country={country}
+                            size={32}
+                          />
+
+                          <div className="min-w-0 flex-1">
+                            <div
+                              className={
+                                winner
+                                  ? "font-bold text-amber-200"
+                                  : "font-bold text-white"
+                              }
+                            >
+                              {winner ? "🏆 " : ""}
+                              {countryName}
+                            </div>
+
+                            <div className="truncate text-xs text-white/70">
+                              {entry.song.artist} · “{entry.song.title}”
+                              {" · "}
+                              {genreName}
+                            </div>
                           </div>
 
-                          <div className="truncate text-xs text-white/70">
-                            {entry.song.artist} · “{entry.song.title}”
-                          </div>
-                        </div>
+                          <div className="text-right text-xs">
+                            <div
+                              className={
+                                winner
+                                  ? "font-black text-amber-200"
+                                  : "font-bold text-white"
+                              }
+                            >
+                              {placement}
+                            </div>
 
-                        <div className="text-right text-xs">
-                          <div
-                            className={
-                              winner
-                                ? "font-black text-amber-200"
-                                : "font-bold text-white"
-                            }
-                          >
-                            {placement}
-                          </div>
-
-                          <div className="text-white/55">
-                            {score} pts
+                            <div className="text-white/55">
+                              {score} {t.results.pts}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </section>
-          ))}
+                    )
+                  })}
+                </div>
+              </section>
+            )
+          })}
         </div>
       </div>
     </div>
@@ -199,7 +244,9 @@ function LanguageModal({
             </p>
 
             <h2 className="text-xl font-black text-white">
-              {isEnglish ? "Select language" : "Selecciona el idioma"}
+              {isEnglish
+                ? "Select language"
+                : "Selecciona el idioma"}
             </h2>
           </div>
 
@@ -268,7 +315,9 @@ export function GameBoard() {
   const [history, setHistory] = useState<SeasonHistory[]>([])
   const [historyOpen, setHistoryOpen] = useState(false)
 
-  const wins = trophies.filter((trophy) => trophy.position === 1).length
+  const wins = trophies.filter(
+    (trophy) => trophy.position === 1,
+  ).length
 
   const season = useMemo(() => {
     const { participants, withdrawals } = getSeason(year, host)
@@ -311,7 +360,9 @@ export function GameBoard() {
       const act = next[qIndex]
 
       const choice =
-        side === "left" ? act.decision.left : act.decision.right
+        side === "left"
+          ? act.decision.left
+          : act.decision.right
 
       next[qIndex] = {
         ...act,
@@ -340,7 +391,9 @@ export function GameBoard() {
         hostId: host,
       })
 
-      const managedEntries = result.filter((entry) => entry.managed)
+      const managedEntries = result.filter(
+        (entry) => entry.managed,
+      )
 
       setEntries(result)
 
@@ -359,13 +412,19 @@ export function GameBoard() {
         ...managedEntries.map((entry) => ({
           year,
           countryId: entry.countryId,
-          position: entry.qualified ? entry.position : 0,
+          position: entry.qualified
+            ? entry.position
+            : 0,
         })),
       ])
 
-      const winner = result.find((entry) => entry.position === 1)
+      const winner = result.find(
+        (entry) => entry.position === 1,
+      )
 
-      setPendingHost(winner ? winner.countryId : host)
+      setPendingHost(
+        winner ? winner.countryId : host,
+      )
       setPhase("results")
 
       return current
@@ -432,6 +491,7 @@ export function GameBoard() {
       seasons={history}
       onClose={() => setHistoryOpen(false)}
       t={t}
+      language={language}
     />
   ) : null
 
@@ -444,7 +504,9 @@ export function GameBoard() {
     />
   ) : null
 
-  const changelog = <ChangelogModal language={language} />
+  const changelog = (
+    <ChangelogModal language={language} />
+  )
 
   if (phase === "intro") {
     return (
@@ -516,7 +578,9 @@ export function GameBoard() {
     const isFirst = roster.length === 0
 
     const stillIn = roster.filter((id) =>
-      season.participants.some((country) => country.id === id),
+      season.participants.some(
+        (country) => country.id === id,
+      ),
     )
 
     return (
@@ -530,7 +594,11 @@ export function GameBoard() {
         <CountrySelect
           year={year}
           host={host}
-          title={isFirst ? t.chooseCountries : t.nextSeason}
+          title={
+            isFirst
+              ? t.chooseCountries
+              : t.nextSeason
+          }
           subtitle={
             isFirst
               ? t.countrySelect.chooseSubtitle
@@ -558,15 +626,35 @@ export function GameBoard() {
       return null
     }
 
+    const hostCountry = getCountry(host)
+    const hostCity = getHostCity(host, year)
+
+    const seasonTitle =
+      language === "en"
+        ? getSeasonTitle(year, host)
+        : getTranslatedSeasonTitle(
+            year,
+            getCountryName(
+              hostCountry.id,
+              hostCountry.name,
+              language,
+            ),
+            hostCity,
+            language,
+          )
+
     return (
       <div className="flex w-full flex-col gap-4">
         <div className="flex items-center justify-between gap-2">
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fuchsia-300/80">
-            {getSeasonTitle(year, host)}
+            {seasonTitle}
           </span>
 
           <span className="text-[11px] font-medium text-white/40">
-            {wins} {wins === 1 ? t.wins.one : t.wins.other}
+            {wins}{" "}
+            {wins === 1
+              ? t.wins.one
+              : t.wins.other}
           </span>
 
           <div className="flex gap-2">
@@ -592,7 +680,10 @@ export function GameBoard() {
             {t.currentEntry}
           </div>
 
-          <StatBars stats={act.stats} compact />
+          <StatBars
+            stats={act.stats}
+            compact
+          />
         </div>
 
         {historyModal}

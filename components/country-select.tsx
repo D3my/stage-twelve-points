@@ -5,11 +5,19 @@ import { CountryBadge } from "@/components/country-badge"
 import {
   MAX_ROSTER,
   MIN_ROSTER,
-  getSeasonTitle,
+  getCountry,
+  getHostCity,
   type Country,
   type Song,
   type Withdrawal,
 } from "@/lib/game"
+import {
+  getCountryName,
+  getGenreName,
+  getTranslatedSeasonTitle,
+  getCityName,
+  translateWithdrawalReason,
+} from "@/lib/game-i18n"
 import { translations, type Language } from "@/lib/i18n"
 
 export function CountrySelect({
@@ -43,8 +51,14 @@ export function CountrySelect({
 
   function toggle(id: string) {
     setSelected((prev) => {
-      if (prev.includes(id)) return prev.filter((x) => x !== id)
-      if (prev.length >= MAX_ROSTER) return prev
+      if (prev.includes(id)) {
+        return prev.filter((x) => x !== id)
+      }
+
+      if (prev.length >= MAX_ROSTER) {
+        return prev
+      }
+
       return [...prev, id]
     })
   }
@@ -52,15 +66,34 @@ export function CountrySelect({
   const canConfirm =
     selected.length >= MIN_ROSTER && selected.length <= MAX_ROSTER
 
+  const hostCountry = getCountry(host)
+  const hostCity = getHostCity(host, year)
+
+  const seasonTitle =
+    language === "en"
+      ? `${hostCity} (${hostCountry.name}) ${year}`
+      : getTranslatedSeasonTitle(
+          year,
+          getCountryName(
+            hostCountry.id,
+            hostCountry.name,
+            language,
+          ),
+          hostCity,
+          language,
+        )
+
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="text-center">
         <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fuchsia-300/80">
-          {getSeasonTitle(year, host)} • {participants.length}{" "}
+          {seasonTitle} • {participants.length}{" "}
           {t.countrySelect.countriesCompeting}
         </div>
 
-        <h2 className="mt-1 text-xl font-bold text-white">{title}</h2>
+        <h2 className="mt-1 text-xl font-bold text-white">
+          {title}
+        </h2>
 
         <p className="mt-1 text-[12px] leading-snug text-white/50">
           {subtitle}
@@ -89,8 +122,20 @@ export function CountrySelect({
       <div className="grid max-h-[240px] grid-cols-1 gap-2 overflow-y-auto pr-1">
         {participants.map((c) => {
           const isSel = selected.includes(c.id)
-          const disabled = !isSel && selected.length >= MAX_ROSTER
+          const disabled =
+            !isSel && selected.length >= MAX_ROSTER
+
           const song = songs[c.id]
+
+          const countryName = getCountryName(
+            c.id,
+            c.name,
+            language,
+          )
+
+          const genreName = song
+            ? getGenreName(song.genre.name, language)
+            : null
 
           return (
             <button
@@ -114,12 +159,12 @@ export function CountrySelect({
               <span className="min-w-0 flex-1">
                 <span className="flex items-center justify-between gap-2">
                   <span className="truncate text-[12px] font-semibold text-white">
-                    {c.name}
+                    {countryName}
                   </span>
 
                   {song ? (
                     <span className="shrink-0 rounded-full bg-white/10 px-1.5 py-0.5 text-[9px] font-medium text-white/60">
-                      {song.genre.name}
+                      {genreName}
                     </span>
                   ) : null}
                 </span>
@@ -142,21 +187,37 @@ export function CountrySelect({
           </div>
 
           <ul className="flex flex-col gap-1">
-            {withdrawals.map((w) => (
-              <li
-                key={w.country.id}
-                className="flex items-start gap-2 text-[10px] leading-snug"
-              >
-                <CountryBadge country={w.country} size={16} />
+            {withdrawals.map((w) => {
+              const countryName = getCountryName(
+                w.country.id,
+                w.country.name,
+                language,
+              )
 
-                <span className="text-white/55">
-                  <span className="font-semibold text-white/75">
-                    {w.country.name}
-                  </span>{" "}
-                  {w.reason}
-                </span>
-              </li>
-            ))}
+              const reason = translateWithdrawalReason(
+                w.reason,
+                language,
+              )
+
+              return (
+                <li
+                  key={w.country.id}
+                  className="flex items-start gap-2 text-[10px] leading-snug"
+                >
+                  <CountryBadge
+                    country={w.country}
+                    size={16}
+                  />
+
+                  <span className="text-white/55">
+                    <span className="font-semibold text-white/75">
+                      {countryName}
+                    </span>{" "}
+                    {reason}
+                  </span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       ) : null}
