@@ -45,14 +45,17 @@ const CHANGELOG = {
 } as const
 
 export function ChangelogModal({
-  language,
+  language = "en",
 }: {
-  language: Language
+  language?: Language
 }) {
   const [open, setOpen] = useState(false)
 
   const isSpanish = language === "es"
-  const t = translations[language]
+
+  const t = isSpanish
+    ? translations.es
+    : translations.en
 
   const releases = isSpanish
     ? CHANGELOG.es
