@@ -7,7 +7,7 @@ import { DecisionCard } from "@/components/decision-card"
 import { ResultsTable } from "@/components/results-table"
 import { StatBars } from "@/components/stat-bars"
 import { applyEffect, DECISIONS, generateSong, getCountry, getHostCity, getSeasonTitle, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
-import { ChangelogModal } from "@/components/changelog-modal"
+import { translations, type Language } from "@/lib/i18n"
 
 type Phase = "intro" | "select" | "questions" | "results"
 type ActState = { countryId: string; song: Song; stats: Stats; decision: Decision }
@@ -66,6 +66,8 @@ function HistoryModal({ seasons, onClose }: { seasons: SeasonHistory[]; onClose:
 }
 
 export function GameBoard() {
+  const [language, setLanguage] = useState<Language>("en")
+  const t = translations[language as Language]
   const [phase, setPhase] = useState<Phase>("intro")
   const [year, setYear] = useState(START_YEAR)
   const [host, setHost] = useState(START_HOST)
@@ -159,7 +161,17 @@ export function GameBoard() {
 
   if (phase === "intro") {
     return (
-      <div className="flex w-full flex-col items-center gap-5 text-center">
+      <div className="relative flex w-full flex-col items-center gap-5 text-center">
+        <div className="absolute right-0 top-0">
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as Language)}
+            className="rounded-lg border border-white/20 bg-black/30 px-2 py-1.5 text-xs text-white"
+          >
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+          </select>
+        </div>
         <div className="flex -space-x-2">{["se", "it", "ua", "fi"].map((id) => <CountryBadge key={id} country={getCountry(id)} size={40} />)}</div>
         <div><h1 className="text-2xl font-black leading-tight text-white">Eurovision Stage</h1><p className="mt-1 text-[12px] leading-snug text-white/55">You are the stage director behind Europe&apos;s greatest song contest. Run 1 to 4 countries each season. You can&apos;t pick the song &mdash; but you can reshape it and its staging with one make-or-break call per act, then survive the semi-final and the Grand Final scoreboard.</p></div>
         <ul className="w-full space-y-1.5 text-left text-[11px] text-white/60"><li className="flex gap-2"><span className="text-fuchsia-300">1.</span> Pick 1&ndash;4 competing countries &mdash; each already has a song chosen.</li><li className="flex gap-2"><span className="text-fuchsia-300">2.</span> Make one call per act: tweak the song or the staging.</li><li className="flex gap-2"><span className="text-fuchsia-300">3.</span> Qualify through the semi-final, then all countries vote 12&ndash;1.</li><li className="flex gap-2"><span className="text-fuchsia-300">4.</span> Win to host next year, then swap countries and go again.</li></ul>
