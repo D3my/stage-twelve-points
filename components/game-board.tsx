@@ -154,7 +154,7 @@ export function GameBoard() {
   }
 
   const exitButton = <button type="button" onClick={exitGame} className="rounded-lg border border-white/20 px-3 py-1.5 text-xs font-semibold text-white/70 transition hover:border-white/40 hover:text-white">Exit game</button>
-  const historyButton = <button type="button" onClick={() => setHistoryOpen(true)} className="rounded-lg border border-fuchsia-300/40 px-3 py-1.5 text-xs font-semibold text-fuchsia-100 transition hover:border-fuchsia-200 hover:text-white">History {history.length ? "(" + history.length + ")" : ""}</button>
+  const historyButton = <button type="button" onClick={() => setHistoryOpen(true)} className="rounded-lg border border-fuchsia-300/40 px-3 py-1.5 text-xs font-semibold text-fuchsia-100 transition hover:border-fuchsia-200 hover:text-white">History</button>
   const historyModal = historyOpen ? <HistoryModal seasons={history} onClose={() => setHistoryOpen(false)} /> : null
 
   if (phase === "intro") {
