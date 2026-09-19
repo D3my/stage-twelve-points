@@ -11,6 +11,7 @@ const CHANGELOG = {
       version: "1.0.1",
       date: "2026-09-19",
       changes: [
+        "Added languages selection.",
         "Added host city system with 95% capital / 5% alternative city selection.",
         "Added special host city exception for Eurovision 2027 in Burgas.",
         "Updated country capitals and alternative cities.",
@@ -28,6 +29,7 @@ const CHANGELOG = {
       version: "1.0.1",
       date: "2026-09-19",
       changes: [
+        "Añadido selector de idiomas",
         "Añadido el sistema de ciudades anfitrionas con un 95 % de probabilidad para la capital y un 5 % para una ciudad alternativa.",
         "Añadida una excepción especial para que Burgas sea la ciudad anfitriona de Eurovisión 2027.",
         "Actualizadas las capitales de los países y sus ciudades alternativas.",
