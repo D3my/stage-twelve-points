@@ -32,15 +32,7 @@ export function ChangelogModal() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="
-            text-xs
-            text-muted-foreground/50
-            transition-all
-            duration-200
-            hover:text-muted-foreground
-            hover:underline
-            underline-offset-4
-        "
+        className="text-xs text-muted-foreground/50 transition-colors hover:text-muted-foreground hover:underline underline-offset-4"
         >
         v{APP_VERSION} · Changelog
         </button>
