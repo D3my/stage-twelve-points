@@ -5,6 +5,7 @@ import { CountryBadge } from "@/components/country-badge"
 import {
   MAX_ROSTER,
   MIN_ROSTER,
+  getSeasonTitle,
   type Country,
   type Song,
   type Withdrawal,
