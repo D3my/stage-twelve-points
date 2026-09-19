@@ -11,7 +11,7 @@ const CHANGELOG = {
       version: "1.0.1",
       date: "2026-09-19",
       changes: [
-        "Added languages selection.",
+        "Added language selection.",
         "Added host city system with 95% capital / 5% alternative city selection.",
         "Added special host city exception for Eurovision 2027 in Burgas.",
         "Updated country capitals and alternative cities.",
@@ -29,7 +29,7 @@ const CHANGELOG = {
       version: "1.0.1",
       date: "2026-09-19",
       changes: [
-        "Añadido selector de idiomas",
+        "Añadida la selección de idioma.",
         "Añadido el sistema de ciudades anfitrionas con un 95 % de probabilidad para la capital y un 5 % para una ciudad alternativa.",
         "Añadida una excepción especial para que Burgas sea la ciudad anfitriona de Eurovisión 2027.",
         "Actualizadas las capitales de los países y sus ciudades alternativas.",
@@ -51,7 +51,16 @@ export function ChangelogModal({
 }) {
   const [open, setOpen] = useState(false)
   const t = translations[language]
-  const releases = CHANGELOG[language]
+
+  const releases =
+    language === "es"
+      ? CHANGELOG.es
+      : CHANGELOG.en
+
+  const whatsNew =
+    language === "es"
+      ? "Novedades"
+      : "What's new"
 
   return (
     <>
@@ -78,7 +87,7 @@ export function ChangelogModal({
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fuchsia-300">
-                  {language === "en" ? "What's new" : "Novedades"}
+                  {whatsNew}
                 </p>
 
                 <h2 className="text-xl font-black text-white">
@@ -115,7 +124,10 @@ export function ChangelogModal({
                           key={change}
                           className="flex gap-2 text-xs text-white/70"
                         >
-                          <span className="text-fuchsia-300">•</span>
+                          <span className="text-fuchsia-300">
+                            •
+                          </span>
+
                           <span>{change}</span>
                         </li>
                       ))}
