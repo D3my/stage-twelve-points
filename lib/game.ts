@@ -965,6 +965,11 @@ export function getHostCity(countryId: string, year: number): string {
 
   if (!country) return ""
 
+  // Eurovision 2027 is a fixed exception: Burgas is the official Host City.
+  if (countryId === "bg" && year === 2027) {
+    return "Burgas"
+  }
+
   const alternatives = country.alternativeCities ?? []
 
   // 95% → ciudad principal
@@ -975,9 +980,9 @@ export function getHostCity(countryId: string, year: number): string {
 
   const rng = mulberry32(hashSeed(`host-city-${countryId}-${year}`))
 
-  if (rng() < 0.90) {
-    return pick(alternatives, rng)
+  if (rng() < 0.95) {
+    return country.city
   }
 
-  return country.city
+  return pick(alternatives, rng)
 }

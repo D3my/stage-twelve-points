@@ -7,6 +7,7 @@ import { DecisionCard } from "@/components/decision-card"
 import { ResultsTable } from "@/components/results-table"
 import { StatBars } from "@/components/stat-bars"
 import { applyEffect, DECISIONS, generateSong, getCountry, getHostCity, getSeasonTitle, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
+import { ChangelogModal } from "@/components/changelog-modal"
 
 type Phase = "intro" | "select" | "questions" | "results"
 type ActState = { countryId: string; song: Song; stats: Stats; decision: Decision }
