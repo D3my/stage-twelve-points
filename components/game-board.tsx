@@ -6,7 +6,7 @@ import { CountrySelect } from "@/components/country-select"
 import { DecisionCard } from "@/components/decision-card"
 import { ResultsTable } from "@/components/results-table"
 import { StatBars } from "@/components/stat-bars"
-import { applyEffect, DECISIONS, generateSong, getCountry, getSeasonTitle, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
+import { applyEffect, DECISIONS, generateSong, getCountry, getHostCity, getSeasonTitle, getSeason, runContest, seedStats, shuffle, START_HOST, START_YEAR, type Decision, type Entry, type Song, type Stats } from "@/lib/game"
 
 type Phase = "intro" | "select" | "questions" | "results"
 type ActState = { countryId: string; song: Song; stats: Stats; decision: Decision }
@@ -14,6 +14,7 @@ type Trophy = { year: number; countryId: string; position: number }
 type SeasonHistory = {
   year: number
   hostId: string
+  hostCity: string
   entries: Entry[]
 }
 
@@ -31,7 +32,7 @@ function HistoryModal({ seasons, onClose }: { seasons: SeasonHistory[]; onClose:
         <div className="space-y-5">
           {seasons.map((season) => (
             <section key={season.year}>
-              <h3 className="mb-2 text-sm font-bold text-white">{getSeasonTitle(season.year, season.hostId)}</h3>
+              <h3 className="mb-2 text-sm font-bold text-white">{season.hostCity} ({getCountry(season.hostId)?.name}) {season.year}</h3>
               <div className="space-y-2">
                 {season.entries.map((entry) => {
                   const country = getCountry(entry.countryId)
@@ -115,7 +116,12 @@ export function GameBoard() {
       setEntries(result)
       setHistory((previous) => [
         ...previous,
-        { year, hostId: host, entries: managedEntries }
+        {
+          year,
+          hostId: host,
+          hostCity: getHostCity(host, year),
+          entries: managedEntries,
+        }
       ])
       setTrophies((prev) => [...prev, ...managedEntries.map((entry) => ({ year, countryId: entry.countryId, position: entry.qualified ? entry.position : 0 }))])
       const winner = result.find((entry) => entry.position === 1)

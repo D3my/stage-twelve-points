@@ -951,5 +951,32 @@ export const MAX_ROSTER = 4
 
 export function getSeasonTitle(year: number, hostId: string): string {
   const host = getCountry(hostId)
-  return `${host.city} (${host.name}) ${year}`
+
+  if (!host) return `${year}`
+
+  const city = getHostCity(hostId, year)
+
+  return `${city} (${host.name}) ${year}`
+}
+
+export function getHostCity(countryId: string, year: number): string {
+  const country = getCountry(countryId)
+
+  if (!country) return ""
+
+  const alternatives = country.alternativeCities ?? []
+
+  // 95% → ciudad principal
+  // 5% → ciudad alternativa
+  if (alternatives.length === 0) {
+    return country.city
+  }
+
+  const rng = mulberry32(hashSeed(`host-city-${countryId}-${year}`))
+
+  if (rng() < 0.05) {
+    return pick(alternatives, rng)
+  }
+
+  return country.city
 }
