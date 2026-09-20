@@ -166,6 +166,60 @@ export const COUNTRIES: Country[] = [
 
 ]
 
+const REAL_EUROVISION_WINS: Record<string, number> = {
+  ie: 7,
+  se: 7,
+  gb: 5,
+  fr: 5,
+  lu: 5,
+  nl: 5,
+  es: 2,
+  it: 3,
+  dk: 3,
+  no: 3,
+  de: 2,
+  il: 4,
+  ua: 3,
+  at: 3,
+  ch: 3,
+  gr: 1,
+  fi: 1,
+  ee: 1,
+  lv: 1,
+  tr: 1,
+  pt: 1,
+  rs: 1,
+  ru: 1,
+  az: 1,
+  be: 1,
+  bg: 1,
+  hr: 0,
+  cy: 0,
+  cz: 0,
+  is: 0,
+  pl: 0,
+  si: 0,
+  ro: 0,
+  md: 0,
+  al: 0,
+  am: 0,
+  ge: 0,
+  lt: 0,
+  mt: 0,
+  me: 0,
+  mk: 0,
+  sk: 0,
+  hu: 0,
+  ba: 0,
+  sm: 0,
+}
+
+export function getRealEurovisionWins(
+  countryId: string,
+): number {
+  return REAL_EUROVISION_WINS[countryId] ?? 0
+}
+
 export function getCountry(id: string): Country {
   return COUNTRIES.find((c) => c.id === id) as Country
 }

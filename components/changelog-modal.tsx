@@ -8,6 +8,17 @@ export const APP_VERSION = "1.0.1"
 const CHANGELOG = {
   en: [
     {
+      version: "1.0.2",
+      date: "2026-09-20",
+      changes: [
+        "Game balancing to prevent the same countries from always winning.",
+        "Improved randomness and artist repetition handling.",
+        "Added bands and duos, with a chance for the band name to be in the country's official language.",
+        "Semi-final correction. There are now two semi-finals instead of one featuring all countries that are not automatically qualified.",
+      ],
+    
+    },
+    {
       version: "1.0.1",
       date: "2026-09-19",
       changes: [
@@ -25,6 +36,16 @@ const CHANGELOG = {
     },
   ],
   es: [
+    {
+      version: "1.0.2",
+      date: "2026-09-20",
+      changes: [
+        "Balanceo del juego para que no ganen siempre los mismos.",
+        "Corrección en la aleatoriedad y repetición de artistas.",
+        "Añadidas bandas y duos, existe una probabilidad de que el nombre de la banda sea en el idioma oficial del país.",
+        "Corrección semifinales. Ahora existen dos semifinales en vez de una con todos los paises no clasificados automáticamente.",
+      ],
+    },
     {
       version: "1.0.1",
       date: "2026-09-19",
