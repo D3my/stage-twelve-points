@@ -171,7 +171,7 @@ export function CountrySelect({
 
                 {song ? (
                   <span className="block truncate text-[10px] text-white/45">
-                    &ldquo;{song.title}&rdquo; — {song.artist}
+                    &ldquo;{song.title}&rdquo; — {song.artist.name}
                   </span>
                 ) : null}
               </span>

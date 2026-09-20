@@ -207,9 +207,9 @@ export function DecisionCard({
             </div>
 
             <div className="text-[10px] text-white/45">
-              {song.artist}
+            {song.artist.name}
 
-              {song.veteran ? (
+            {song.veteran ? (
                 <span
                   className="ml-0.5 text-amber-300"
                   title={t.decisionCard.returningArtist}
