@@ -317,15 +317,22 @@ export function GameBoard() {
       const returningArtists =
         artistHistory[country.id] ?? []
   
-      const song = generateSong(
-        country.id,
-        year,
-        usedArtists,
-        returningArtists,
-      )
+        const song = generateSong(
+          country.id,
+          year,
+          usedArtists,
+        )
   
-      songs[country.id] = song
-      usedArtists.add(song.artist)
+        for (const country of participants) {
+          const song = generateSong(
+            country.id,
+            year,
+            usedArtists,
+          )
+        
+          songs[country.id] = song
+          usedArtists.add(song.artist.id)
+        }
     }
   
     return {

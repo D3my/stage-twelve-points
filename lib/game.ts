@@ -453,301 +453,396 @@ const LANG_TITLES: Record<string, string[]> = {
 const FIRST_NAMES: Record<string, string[]> = {
   default: [
     "Alex", "Nadia", "Milo", "Sasha", "Elin", "Dario", "Nina", "Leon", "Mara", "Ivo",
-    "Tara", "Rudi", "Sena", "Vito", "Lea", "Noa", "Aria", "Lena", "Mika", "Luca",
-    "Nora", "Maya", "Theo", "Elia", "Mila", "Dina", "Leo", "Sara", "Nico", "Eva",
-    "Lia", "Adrian", "Mina", "Eli", "Lara", "Kai", "Rina", "Talia", "Oskar", "Vera",
-    "Sami", "Alma", "Niko", "Mara", "Elio", "Iris", "Lina", "Dani", "Raya", "Ari",
+    "Tara", "Rudi", "Sena", "Vito", "Lea", "Noa", "Aria", "Lena", "Mika", "Eva",
+    "Lia", "Niko", "Mila", "Luca", "Sara", "Lina", "Eli", "Mina", "Kai", "Nora",
+    "Theo", "Mira", "Lara", "Lio", "Elia", "Rina", "Sami", "Toni", "Maya", "Dina",
+    "Ema", "Luka", "Nika", "Sia", "Vera", "Mara", "Kira", "Timo", "Rhea", "Enzo",
   ],
 
   en: [
     "Ellie", "Jonah", "Grace", "Mason", "Ruby", "Cole", "Ivy", "Reece", "Faye", "Miles",
-    "Nora", "Blake", "Esme", "Dylan", "Lark", "Sage", "Chloe", "Oliver", "Amelia", "Henry",
-    "Isla", "Jack", "Freya", "Oscar", "Evie", "Charlie", "Lily", "Harry", "Phoebe", "George",
-    "Poppy", "Theo", "Maisie", "Archie", "Florence", "Alfie", "Rosie", "Arthur", "Daisy", "Finley",
-    "Willow", "Edward", "Matilda", "James", "Elsie", "Leo", "Imogen", "Toby", "Millie", "Ethan",
+    "Nora", "Blake", "Esme", "Dylan", "Lark", "Sage", "Amelia", "Oliver", "Charlotte", "Henry",
+    "Isla", "Jack", "Sophie", "Theo", "Evie", "Oscar", "Freya", "Harry", "Lily", "Leo",
+    "Poppy", "George", "Molly", "Arthur", "Ella", "James", "Chloe", "Thomas", "Daisy", "Archie",
+    "Phoebe", "Alfie", "Maisie", "Finley", "Willow", "Ethan", "Florence", "Charlie", "Imogen", "Max",
   ],
 
   sv: [
     "Elin", "Måns", "Saga", "Viktor", "Tuva", "Anton", "Nova", "Loreen", "Felix", "Sanna",
-    "Ludvig", "Astrid", "Kian", "Ebba", "Jonas", "Signe", "Alva", "Hugo", "Elsa", "Elias",
-    "Wilma", "Arvid", "Maja", "Nils", "Agnes", "Axel", "Freja", "Isak", "Ida", "William",
-    "Clara", "Leo", "Linnea", "Oliver", "Stella", "Oskar", "Vera", "Emil", "Liv", "Erik",
-    "Selma", "Gustav", "Tilda", "Albin", "Hedda", "Simon", "Moa", "Viggo", "Tyra", "Liam",
+    "Ludvig", "Astrid", "Kian", "Ebba", "Jonas", "Signe", "Alva", "Axel", "Elsa", "Hugo",
+    "Agnes", "Isak", "Wilma", "Elias", "Maja", "Oskar", "Linnea", "Emil", "Freja", "William",
+    "Tindra", "Oliver", "Nellie", "Arvid", "Selma", "Theodor", "Ida", "Viggo", "Stella", "Noah",
+    "Alice", "Leo", "Ellen", "Liam", "Klara", "Edvin", "Julia", "Simon", "Moa", "Albin",
   ],
 
   no: [
     "Aksel", "Ingrid", "Sondre", "Maja", "Emil", "Thea", "Kaja", "Ulrik", "Vilde", "Henrik",
-    "Frida", "Odin", "Silje", "Nikolai", "Ronja", "Erik", "Astrid", "Magnus", "Sofie", "Isak",
-    "Nora", "Lars", "Ida", "Anders", "Emma", "Elias", "Marte", "Kristian", "Tuva", "Jonas",
-    "Hedda", "Martin", "Amalie", "Even", "Linnea", "Marius", "Live", "Sander", "Aurora", "Oskar",
-    "Karoline", "Oliver", "Mina", "Tobias", "Selma", "Kasper", "Ella", "Mathias", "Leah", "Iver",
+    "Frida", "Odin", "Silje", "Nikolai", "Ronja", "Erik", "Astrid", "Magnus", "Ida", "Isak",
+    "Nora", "Lars", "Sofie", "Anders", "Emma", "Kristian", "Amalie", "Martin", "Hedda", "Jonas",
+    "Marte", "Elias", "Live", "Oliver", "Selma", "Sander", "Tuva", "Mathias", "Ella", "Marius",
+    "Theodor", "Karoline", "Oskar", "Mina", "Viktor", "Linnea", "Sebastian", "Julie", "Noah", "Aurora",
   ],
 
   fi: [
     "Aino", "Eero", "Ilta", "Niko", "Sanni", "Väinö", "Helmi", "Onni", "Lumi", "Aleksi",
-    "Venla", "Kaarle", "Sisu", "Roosa", "Tuuli", "Joel", "Aada", "Elias", "Emilia", "Mikael",
-    "Ella", "Matias", "Sofia", "Oskari", "Iida", "Joonas", "Veera", "Eetu", "Anni", "Lauri",
-    "Vilma", "Antti", "Saara", "Juho", "Eevi", "Topi", "Siiri", "Rasmus", "Linnea", "Jere",
-    "Nea", "Arttu", "Pinja", "Leo", "Hilla", "Miro", "Noora", "Valtteri", "Kerttu", "Luka",
+    "Venla", "Kaarle", "Sisu", "Roosa", "Tuuli", "Joel", "Aada", "Elias", "Emilia", "Joonas",
+    "Veera", "Matti", "Ella", "Oskari", "Siiri", "Leevi", "Iida", "Arttu", "Sofia", "Lauri",
+    "Anni", "Juho", "Vilma", "Eetu", "Noora", "Mikael", "Hilla", "Antti", "Saara", "Jere",
+    "Linnea", "Rasmus", "Kerttu", "Samuel", "Alina", "Henna", "Tomi", "Nea", "Topias", "Pinja",
   ],
 
   it: [
     "Giulia", "Marco", "Chiara", "Luca", "Sofia", "Matteo", "Elisa", "Dario", "Francesca", "Alessio",
-    "Nina", "Gabriele", "Bianca", "Vito", "Serena", "Enzo", "Aurora", "Leonardo", "Beatrice", "Federico",
-    "Martina", "Andrea", "Alice", "Davide", "Giorgia", "Simone", "Valentina", "Riccardo", "Elena", "Tommaso",
-    "Camilla", "Emanuele", "Greta", "Filippo", "Vittoria", "Lorenzo", "Arianna", "Niccolò", "Gaia", "Mattia",
-    "Carlotta", "Jacopo", "Claudia", "Pietro", "Ilaria", "Raffaele", "Noemi", "Stefano", "Cecilia", "Alessandro",
+    "Nina", "Gabriele", "Bianca", "Vito", "Serena", "Enzo", "Aurora", "Leonardo", "Beatrice", "Lorenzo",
+    "Martina", "Federico", "Alice", "Riccardo", "Camilla", "Andrea", "Valentina", "Davide", "Greta", "Tommaso",
+    "Arianna", "Simone", "Giorgia", "Emanuele", "Noemi", "Filippo", "Elena", "Mattia", "Sara", "Niccolò",
+    "Carlotta", "Pietro", "Irene", "Samuele", "Claudia", "Jacopo", "Marta", "Ludovica", "Fabio", "Viola",
   ],
 
   fr: [
     "Camille", "Louis", "Chloé", "Hugo", "Manon", "Émile", "Léa", "Théo", "Elise", "Rémi",
     "Océane", "Julien", "Amélie", "Noé", "Sabine", "Lucas", "Clara", "Gabriel", "Louise", "Arthur",
-    "Jade", "Nathan", "Emma", "Raphaël", "Alice", "Mathis", "Inès", "Antoine", "Zoé", "Maxime",
-    "Lola", "Thomas", "Anaïs", "Baptiste", "Margot", "Paul", "Élodie", "Adrien", "Juliette", "Victor",
-    "Maëlle", "Simon", "Célia", "Alexandre", "Romane", "Martin", "Lucie", "Valentin", "Éva", "Romain",
+    "Inès", "Mathis", "Emma", "Nathan", "Jade", "Raphaël", "Alice", "Maxime", "Zoé", "Antoine",
+    "Margot", "Paul", "Lola", "Baptiste", "Lucie", "Thomas", "Agathe", "Adrien", "Éva", "Romain",
+    "Maëlle", "Simon", "Élodie", "Martin", "Juliette", "Victor", "Anaïs", "Alexandre", "Céleste", "Valentin",
   ],
 
   es: [
     "Lucía", "Mateo", "Carla", "Diego", "Sara", "Pablo", "Nerea", "Álvaro", "Rocío", "Hugo",
-    "Marta", "Iván", "Elena", "Bruno", "Paula", "Adrián", "Sofía", "Daniel", "Valeria", "Alejandro",
-    "Claudia", "Mario", "Alba", "Javier", "Irene", "Álex", "Marina", "David", "Laura", "Sergio",
-    "Carmen", "Ángel", "Aitana", "Gonzalo", "Natalia", "Manuel", "Noelia", "Jorge", "Miriam", "Raúl",
-    "Patricia", "Samuel", "Cristina", "Héctor", "Andrea", "Miguel", "Beatriz", "Óscar", "Teresa", "Rubén",
+    "Marta", "Iván", "Elena", "Bruno", "Paula", "Adrián", "Sofía", "Daniel", "Valeria", "Javier",
+    "Claudia", "Alejandro", "Marina", "Mario", "Carmen", "Sergio", "Irene", "Álex", "Aitana", "Ángel",
+    "Natalia", "David", "Laura", "Raúl", "Noelia", "Miguel", "Andrea", "Óscar", "Alba", "Rubén",
+    "Patricia", "Víctor", "Beatriz", "Enrique", "Julia", "Samuel", "Cristina", "Gonzalo", "Miriam", "Jorge",
   ],
 
   pt: [
     "Beatriz", "Tiago", "Inês", "Rui", "Mariana", "Diogo", "Salomé", "João", "Carolina", "Miguel",
-    "Leonor", "André", "Matilde", "Nuno", "Sofia", "Duarte", "Madalena", "Tomás", "Ana", "Gonçalo",
-    "Clara", "Pedro", "Bárbara", "Rodrigo", "Joana", "Afonso", "Catarina", "Francisco", "Margarida", "Martim",
-    "Teresa", "Henrique", "Filipa", "Guilherme", "Rita", "Diogo", "Sara", "Ricardo", "Inês", "Vasco",
-    "Lara", "António", "Sílvia", "Filipe", "Mariana", "Daniel", "Eva", "Bruno", "Laura", "Rafael",
+    "Leonor", "André", "Matilde", "Nuno", "Sofia", "Duarte", "Mafalda", "Gonçalo", "Catarina", "Tomás",
+    "Francisca", "Rodrigo", "Bárbara", "Afonso", "Ana", "Martim", "Joana", "Pedro", "Margarida", "Guilherme",
+    "Teresa", "Vasco", "Clara", "Henrique", "Rita", "Daniel", "Lara", "Filipe", "Laura", "Bruno",
+    "Marisa", "Ricardo", "Eva", "Simão", "Carolina", "Luís", "Diana", "António", "Filipa", "Eduardo",
   ],
 
   de: [
     "Lena", "Felix", "Mia", "Jonas", "Klara", "Max", "Greta", "Lukas", "Anke", "Emil",
     "Frida", "Noah", "Heike", "Tobias", "Svea", "Jan", "Anna", "Paul", "Marie", "Leon",
-    "Laura", "Finn", "Hannah", "Ben", "Lea", "Elias", "Lina", "Moritz", "Sophie", "David",
-    "Clara", "Liam", "Emma", "Niklas", "Johanna", "Tim", "Nele", "Felix", "Amelie", "Maximilian",
-    "Luisa", "Simon", "Marlene", "Jakob", "Lara", "Florian", "Greta", "Julian", "Maja", "Alexander",
+    "Hannah", "Ben", "Leonie", "Finn", "Laura", "Elias", "Lina", "Moritz", "Sophie", "Jakob",
+    "Clara", "Niklas", "Amelie", "David", "Johanna", "Felix", "Marlene", "Simon", "Luisa", "Maximilian",
+    "Charlotte", "Julian", "Nina", "Sebastian", "Lara", "Alexander", "Emma", "Matthias", "Theresa", "Konrad",
   ],
 
   nl: [
     "Sanne", "Daan", "Fleur", "Sem", "Isa", "Bram", "Lotte", "Finn", "Roos", "Luuk",
     "Julia", "Thijs", "Noor", "Gijs", "Evi", "Stijn", "Sophie", "Lars", "Mila", "Jesse",
-    "Anna", "Ties", "Nina", "Mees", "Eva", "Joris", "Sara", "Ruben", "Lisa", "Cas",
-    "Fenna", "Thomas", "Saar", "Pim", "Lynn", "Max", "Zoë", "Noud", "Elin", "Mats",
-    "Tess", "Bram", "Feline", "Koen", "Iris", "Sven", "Maud", "Wout", "Lieke", "Bas",
+    "Tess", "Ruben", "Maud", "Niels", "Lynn", "Mees", "Saar", "Wout", "Eva", "Cas",
+    "Feline", "Tim", "Puck", "Joris", "Lieke", "Daan", "Nora", "Koen", "Anne", "Bram",
+    "Iris", "Pim", "Sofie", "Timo", "Fleur", "Joep", "Luna", "Rik", "Eline", "Mats",
   ],
 
   uk: [
     "Oksana", "Andriy", "Yulia", "Taras", "Sofiia", "Dmytro", "Iryna", "Bohdan", "Nadiia", "Olek",
-    "Kateryna", "Yaroslav", "Alina", "Mykola", "Zlata", "Ivan", "Olena", "Maksym", "Anastasiia", "Danylo",
-    "Viktoriia", "Artem", "Mariia", "Oleksii", "Svitlana", "Serhii", "Polina", "Roman", "Tetiana", "Volodymyr",
-    "Yana", "Pavlo", "Nazar", "Kristina", "Vladyslav", "Daria", "Bohdana", "Ihor", "Solomiia", "Denys",
-    "Larysa", "Maksym", "Veronika", "Mykhailo", "Vira", "Oleksandr", "Nadiya", "Stepan", "Lesia", "Marko",
+    "Kateryna", "Yaroslav", "Alina", "Mykola", "Zlata", "Ivan", "Olena", "Maksym", "Anastasiia", "Artem",
+    "Mariia", "Denys", "Viktoriia", "Oleksii", "Daria", "Roman", "Solomiia", "Serhii", "Polina", "Volodymyr",
+    "Tetiana", "Pavlo", "Veronika", "Nazar", "Kristina", "Ihor", "Lilia", "Bohdan", "Svitlana", "Vadym",
+    "Yevhen", "Alina", "Marko", "Lesia", "Danylo", "Vira", "Ostap", "Marta", "Mykhailo", "Roksolana",
   ],
 
   el: [
     "Eleni", "Nikos", "Maria", "Yannis", "Sofia", "Dimitris", "Katerina", "Stelios", "Ioanna", "Petros",
     "Athina", "Kostas", "Danae", "Vasilis", "Marina", "Alexis", "Eirini", "Giorgos", "Anna", "Manolis",
-    "Christina", "Panagiotis", "Elena", "Theodoros", "Vasiliki", "Michalis", "Niki", "Andreas", "Georgia", "Konstantinos",
-    "Dora", "Spyros", "Kalliopi", "Thanasis", "Sotiria", "Lefteris", "Melina", "Stavros", "Eleni", "Ilias",
-    "Agapi", "Antonis", "Fotini", "Nikolaos", "Rania", "Panos", "Alexandra", "Marios", "Vicky", "Sakis",
+    "Christina", "Panagiotis", "Vasiliki", "Theodoros", "Elpida", "Michalis", "Georgia", "Andreas", "Niki", "Spyros",
+    "Kalliopi", "Konstantinos", "Eleni", "Thanasis", "Despina", "Ilias", "Dimitra", "Sotiris", "Fotini", "Lefteris",
+    "Aggeliki", "Marios", "Rania", "Antonis", "Evangelia", "Thanos", "Alexandra", "Vaggelis", "Melina", "Panos",
   ],
 
   hr: [
     "Ana", "Luka", "Ivana", "Marko", "Petra", "Ivan", "Lucija", "Josip", "Marija", "Filip",
-    "Dora", "Tomislav", "Ena", "Nikola", "Klara", "Roko", "Mia", "Matej", "Sara", "Ante",
-    "Lana", "David", "Iva", "Fran", "Nika", "Tin", "Lea", "Lovro", "Tena", "Dominik",
-    "Lucija", "Karlo", "Marta", "Stjepan", "Ema", "Jakov", "Lara", "Matija", "Tea", "Ivan",
-    "Nina", "Marin", "Paula", "Dino", "Lorena", "Bruno", "Magdalena", "Petar", "Karla", "Vedran",
+    "Dora", "Tomislav", "Ena", "Nikola", "Klara", "Roko", "Mia", "Mateo", "Sara", "Fran",
+    "Lea", "Jakov", "Nika", "Lovro", "Ema", "Ante", "Iva", "Domagoj", "Tena", "Tin",
+    "Lana", "Marin", "Paula", "Stjepan", "Lucija", "Bruna", "Borna", "Marta", "Karlo", "Tea",
+    "Petar", "Matea", "Viktor", "Elena", "Dino", "Lara", "Kristijan", "Lorena", "Vedran", "Nela",
   ],
 
   sr: [
     "Jelena", "Nikola", "Milica", "Stefan", "Ana", "Marko", "Teodora", "Luka", "Sara", "Nemanja",
-    "Ivana", "Vuk", "Katarina", "Filip", "Mina", "Uroš", "Marija", "Miloš", "Jovana", "Aleksa",
-    "Anđela", "Dušan", "Tamara", "Lazar", "Sofija", "Bogdan", "Una", "Vladimir", "Isidora", "Mihajlo",
-    "Nina", "Ognjen", "Milica", "Petar", "Anastasija", "Nikola", "Teodora", "Vasilije", "Jovana", "Stefan",
-    "Tijana", "Strahinja", "Mina", "Marko", "Maša", "Nemanja", "Lena", "Pavle", "Nataša", "Aleksandar",
+    "Ivana", "Vuk", "Katarina", "Filip", "Mina", "Uroš", "Jovana", "Miloš", "Marija", "Dušan",
+    "Anđela", "Lazar", "Tamara", "Aleksa", "Isidora", "Bogdan", "Sofija", "Vladimir", "Una", "Ognjen",
+    "Nikolina", "Strahinja", "Maša", "Pavle", "Milica", "Vanja", "Andrej", "Jelica", "Mihajlo", "Tijana",
+    "Teodor", "Danica", "Vasilije", "Lena", "Milan", "Anja", "Veljko", "Nina", "Dunja", "Petar",
   ],
 
   pl: [
     "Zofia", "Kacper", "Maja", "Jakub", "Lena", "Filip", "Julia", "Szymon", "Alicja", "Wiktor",
-    "Nadia", "Antoni", "Ola", "Michał", "Ewa", "Piotr", "Maria", "Jan", "Anna", "Tomasz",
-    "Natalia", "Mateusz", "Klara", "Kamil", "Emilia", "Wojciech", "Lena", "Adam", "Weronika", "Bartosz",
-    "Karolina", "Maciej", "Hanna", "Paweł", "Zuzanna", "Jakub", "Martyna", "Marek", "Oliwia", "Damian",
-    "Agnieszka", "Krzysztof", "Wiktoria", "Łukasz", "Gabriela", "Dawid", "Joanna", "Patryk", "Magdalena", "Mikołaj",
+    "Nadia", "Antoni", "Ola", "Michał", "Ewa", "Piotr", "Zuzanna", "Jan", "Lena", "Franciszek",
+    "Maria", "Mateusz", "Hanna", "Krzysztof", "Natalia", "Bartosz", "Wiktoria", "Adam", "Weronika", "Tomasz",
+    "Amelia", "Kamil", "Emilia", "Patryk", "Gabriela", "Jakub", "Maja", "Mikołaj", "Oliwia", "Dawid",
+    "Aleksandra", "Maciej", "Laura", "Szymon", "Kinga", "Marcel", "Karolina", "Igor", "Paulina", "Oskar",
   ],
 }
 
 const LAST_NAMES: Record<string, string[]> = {
   default: [
     "Vale", "Novak", "Sol", "Marín", "Ríos", "Frost", "Lune", "Moon", "North", "Belle",
-    "Storm", "Vega", "Reine", "Skye", "Asher", "Brant", "River", "Dawn", "Stone", "Silver",
-    "Winter", "Rose", "Hart", "Lane", "Fox", "Blair", "Knight", "Wilde", "Cross", "Rain",
-    "Star", "Ocean", "Gray", "Reed", "West", "Miles", "Sky", "Hope", "Vale", "Brook",
-    "Shaw", "Lake", "Ray", "Bloom", "Haven", "Snow", "Parker", "Everett", "Wren", "Storme",
+    "Storm", "Vega", "Reine", "Skye", "Asher", "Brant", "River", "Stone", "Blair", "Winter",
+    "Dawn", "Silver", "Raven", "Star", "Ocean", "Fox", "Rain", "Wells", "Gray", "Rose",
+    "Lane", "Hart", "West", "Sky", "Brooks", "Field", "Lake", "Cruz", "Snow", "Hill",
+    "Parker", "Reed", "Cole", "Green", "Dale", "Young", "Ray", "Bell", "Miles", "Hope",
   ],
 
   en: [
     "Hart", "Rivers", "Vale", "Fox", "Wren", "Blackwood", "Reed", "Sterling", "Frost", "Marlowe",
-    "Ashford", "Quinn", "Rye", "Hale", "Snow", "Wilder", "Bennett", "Carter", "Morgan", "Hayes",
-    "Brooks", "Parker", "Collins", "Turner", "Cooper", "Baker", "Ward", "Foster", "Murphy", "Reynolds",
-    "Morris", "Campbell", "Ellis", "Griffin", "Hunter", "Sullivan", "Russell", "Harper", "Cameron", "Watson",
-    "Thompson", "Mitchell", "Anderson", "Clarke", "Harrison", "Dawson", "Fletcher", "Bishop", "Palmer", "Spencer",
+    "Ashford", "Quinn", "Rye", "Hale", "Snow", "Wilder", "Bennett", "Carter", "Collins", "Cooper",
+    "Dawson", "Ellis", "Fletcher", "Griffin", "Harper", "Hayes", "Hunter", "King", "Lawson", "Morgan",
+    "Parker", "Reynolds", "Sawyer", "Spencer", "Turner", "Walker", "Ward", "Watson", "Webb", "West",
+    "Wood", "Adams", "Brooks", "Clark", "Foster", "Green", "Harris", "Mason", "Rogers", "Taylor",
   ],
 
   sv: [
     "Lindqvist", "Berg", "Nyström", "Sundgren", "Holm", "Ekström", "Dahl", "Lundin", "Sjöberg", "Norén",
-    "Falk", "Hedlund", "Åberg", "Wik", "Sten", "Brand", "Johansson", "Andersson", "Karlsson", "Nilsson",
-    "Eriksson", "Larsson", "Olsson", "Persson", "Svensson", "Gustafsson", "Pettersson", "Jansson", "Lindberg", "Björk",
-    "Lundberg", "Wallin", "Bergström", "Holmberg", "Sandberg", "Lindgren", "Berglund", "Forsberg", "Ström", "Håkansson",
-    "Vikström", "Öberg", "Söderberg", "Lundström", "Nordin", "Blom", "Engström", "Nordström", "Mattsson", "Eklund",
+    "Falk", "Hedlund", "Åberg", "Wik", "Sten", "Brand", "Andersson", "Johansson", "Karlsson", "Nilsson",
+    "Eriksson", "Larsson", "Olsson", "Persson", "Svensson", "Gustafsson", "Pettersson", "Jonsson", "Lindberg", "Lundberg",
+    "Björk", "Wallin", "Sandberg", "Holmberg", "Bergström", "Lindström", "Mattsson", "Forsberg", "Håkansson", "Vikström",
+    "Nordström", "Ström", "Blom", "Engström", "Söderberg", "Åkesson", "Magnusson", "Eklund", "Öberg", "Dahlberg",
   ],
 
   no: [
     "Dahl", "Berg", "Solheim", "Haugen", "Lund", "Moen", "Vik", "Fjell", "Nord", "Strand",
     "Aas", "Brekke", "Hauge", "Stein", "Ryen", "Foss", "Hansen", "Johansen", "Olsen", "Larsen",
-    "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Eriksen", "Bakken", "Bergli", "Dalen",
-    "Hagen", "Lie", "Sørensen", "Solberg", "Myhre", "Rønning", "Eide", "Dahlberg", "Sæther", "Lunde",
-    "Tangen", "Bjerke", "Vold", "Gran", "Hovland", "Nordli", "Haugen", "Skog", "Aune", "Vikland",
+    "Andersen", "Pedersen", "Nilsen", "Kristiansen", "Jensen", "Karlsen", "Eriksen", "Bakke", "Hagen", "Lie",
+    "Berglund", "Dahlberg", "Solberg", "Lunde", "Sæther", "Moe", "Myhre", "Eide", "Rønning", "Vangen",
+    "Hovland", "Skog", "Vikheim", "Gran", "Dalen", "Sund", "Røed", "Bjerke", "Tangen", "Holm",
   ],
 
   fi: [
     "Virtanen", "Nieminen", "Mäkinen", "Laine", "Koskinen", "Heikkilä", "Salo", "Aalto", "Lahti", "Rinne",
-    "Toivonen", "Halla", "Kivi", "Ranta", "Salmi", "Vuori", "Korhonen", "Heinonen", "Järvinen", "Lehtonen",
-    "Saarinen", "Hämäläinen", "Kallio", "Miettinen", "Karjalainen", "Ahonen", "Kinnunen", "Turunen", "Savolainen", "Laitinen",
-    "Niemelä", "Ojala", "Pitkänen", "Leppänen", "Hakala", "Räsänen", "Mäkelä", "Väisänen", "Kettunen", "Anttila",
-    "Salonen", "Jokinen", "Seppälä", "Koskela", "Niemi", "Hirvonen", "Mattila", "Koskela", "Hiltunen", "Aaltonen",
+    "Toivonen", "Halla", "Kivi", "Ranta", "Salmi", "Vuori", "Korhonen", "Heinonen", "Lehtinen", "Saarinen",
+    "Hämäläinen", "Rantanen", "Kallio", "Järvinen", "Miettinen", "Lehtonen", "Kinnunen", "Karjalainen", "Pitkänen", "Niemelä",
+    "Ahonen", "Heikkinen", "Hakala", "Manninen", "Väisänen", "Seppälä", "Peltonen", "Tuominen", "Koskela", "Salonen",
+    "Ojala", "Mattila", "Nykänen", "Anttila", "Leppänen", "Mustonen", "Hiltunen", "Laitinen", "Soininen", "Koivisto",
   ],
 
   it: [
     "Rossi", "Conti", "Ferrari", "Greco", "Riva", "Marino", "Bruno", "De Luca", "Costa", "Fontana",
-    "Galli", "Rizzo", "Sartori", "Vitale", "Neri", "Amato", "Romano", "Bianchi", "Esposito", "Ricci",
-    "Moretti", "Lombardi", "Barbieri", "Colombo", "Giordano", "Mancini", "De Angelis", "Fabbri", "Ferraro", "Marchetti",
-    "Caruso", "Rinaldi", "Pellegrini", "Villa", "Serra", "Monti", "Fiore", "Gentile", "Martini", "Leone",
-    "De Santis", "Grassi", "Testa", "Parisi", "Sala", "Valenti", "Coppola", "D'Angelo", "Piras", "Bellini",
+    "Galli", "Rizzo", "Sartori", "Vitale", "Neri", "Amato", "Romano", "Ricci", "Moretti", "Esposito",
+    "Lombardi", "Barbieri", "Colombo", "Ferraro", "Santoro", "Mariani", "Caruso", "Leone", "Longo", "Gentile",
+    "Martini", "Serra", "De Angelis", "Pellegrini", "Fiore", "Grassi", "Ferri", "Monti", "Rinaldi", "Villa",
+    "Bianchi", "Mancini", "Giordano", "Orlando", "Testa", "Sanna", "Fontana", "D'Amico", "Parisi", "Bellini",
   ],
 
   fr: [
     "Laurent", "Moreau", "Girard", "Fontaine", "Dubois", "Lefèvre", "Marchand", "Colin", "Renaud", "Blanchard",
     "Faure", "Leroy", "Noël", "Perrin", "Aubert", "Roche", "Martin", "Bernard", "Thomas", "Robert",
-    "Richard", "Petit", "Durand", "Lefebvre", "Mercier", "Dupont", "Lambert", "Bonnet", "François", "Legrand",
-    "Garnier", "Chevalier", "Robin", "Masson", "Gérard", "Boyer", "Denis", "Muller", "Rousseau", "Vincent",
-    "Henry", "Blanc", "Guerin", "Besson", "Renard", "Caron", "Barbier", "Dufour", "Leclerc", "Perrot",
+    "Richard", "Petit", "Durand", "Lemoine", "Simon", "Michel", "Lefebvre", "Mercier", "Legrand", "Garnier",
+    "Chevalier", "Robin", "Masson", "Henry", "Roussel", "Boyer", "Gautier", "Caron", "Renard", "Barbier",
+    "Dupont", "Lambert", "Bonnet", "François", "Muller", "Brunet", "Dumas", "Picard", "Vidal", "Besson",
   ],
 
   es: [
     "García", "Torres", "Vega", "Navarro", "Molina", "Serrano", "Castro", "Ibáñez", "Reyes", "Delgado",
-    "Marín", "Bravo", "Aguilar", "Solís", "Campos", "Prieto", "González", "Rodríguez", "Fernández", "López",
-    "Martínez", "Sánchez", "Pérez", "Gómez", "Martín", "Jiménez", "Ruiz", "Hernández", "Díaz", "Moreno",
-    "Muñoz", "Álvarez", "Romero", "Alonso", "Navarro", "Gutiérrez", "Domínguez", "Ramos", "Vázquez", "Ramírez",
-    "Sanz", "Iglesias", "Mora", "Ortiz", "Rubio", "Marcos", "Del Río", "Cabrera", "Vidal", "Santiago",
+    "Marín", "Bravo", "Aguilar", "Solís", "Campos", "Prieto", "Gómez", "Fernández", "López", "Martínez",
+    "Sánchez", "Pérez", "González", "Rodríguez", "Ruiz", "Díaz", "Moreno", "Muñoz", "Álvarez", "Romero",
+    "Alonso", "Gutiérrez", "Navarro", "Domínguez", "Ramos", "Vázquez", "Ramírez", "Sanz", "Iglesias", "Suárez",
+    "Blanco", "Mora", "Ortega", "Del Río", "Cabrera", "Vidal", "Santiago", "Núñez", "Cortés", "Pastor",
   ],
 
   pt: [
     "Silva", "Costa", "Ferreira", "Sousa", "Lopes", "Moreira", "Pinto", "Nunes", "Tavares", "Baptista",
     "Rocha", "Cardoso", "Matos", "Freitas", "Braga", "Valente", "Santos", "Oliveira", "Pereira", "Rodrigues",
-    "Martins", "Gomes", "Carvalho", "Ribeiro", "Alves", "Teixeira", "Correia", "Mendes", "Barbosa", "Monteiro",
-    "Coelho", "Neves", "Marques", "Cunha", "Vieira", "Dias", "Pires", "Fernandes", "Faria", "Azevedo",
-    "Maia", "Andrade", "Moura", "Fonseca", "Nogueira", "Lima", "Reis", "Cruz", "Melo", "Leite",
+    "Martins", "Gomes", "Carvalho", "Teixeira", "Correia", "Mendes", "Coelho", "Monteiro", "Neves", "Cunha",
+    "Pires", "Ribeiro", "Antunes", "Azevedo", "Faria", "Barbosa", "Fonseca", "Marques", "Araújo", "Vieira",
+    "Moura", "Campos", "Simões", "Loureiro", "Dias", "Machado", "Henriques", "Cruz", "Borges", "Varela",
   ],
 
   de: [
     "Fischer", "Weber", "Wagner", "Becker", "Hoffmann", "Schulz", "Kaiser", "Vogel", "Brandt", "Winter",
     "Sommer", "Wolf", "Lang", "Berger", "Haas", "Frei", "Müller", "Schmidt", "Schneider", "Friedrich",
-    "Klein", "Richter", "Koch", "Bauer", "Winkler", "Roth", "Neumann", "Schwarz", "Zimmermann", "Krüger",
-    "Hartmann", "Werner", "Lehmann", "Schmitz", "Krause", "Meier", "Walter", "Huber", "Kaiser", "Peters",
-    "Jung", "Keller", "Frank", "Kuhn", "Vogt", "Busch", "Seidel", "Arnold", "Brand", "Graf",
+    "Klein", "Richter", "Koch", "Bauer", "Huber", "Winkler", "Kraus", "Lehmann", "Schwarz", "Zimmermann",
+    "Krüger", "Hartmann", "Lange", "Werner", "Schmitz", "Keller", "Neumann", "Peters", "Roth", "Frank",
+    "Jäger", "Lorenz", "Kuhn", "Arnold", "Graf", "Busch", "Vogt", "Horn", "Seidel", "Brand",
   ],
 
   nl: [
     "de Vries", "Jansen", "Bakker", "Visser", "Smit", "Meijer", "Bosch", "Vermeer", "de Jong", "Kramer",
-    "van Dijk", "Post", "Willems", "Prins", "Klein", "de Wit", "van der Meer", "van den Berg", "de Boer", "Mulder",
-    "de Graaf", "van Leeuwen", "Dekker", "Dijkstra", "Hendriks", "Vos", "Verhoeven", "van der Linden", "Kuiper", "Blom",
-    "Schouten", "van Dam", "Koster", "Jacobs", "Veenstra", "Hoekstra", "Smeets", "van Beek", "Maas", "Bos",
-    "van Vliet", "Molenaar", "Peeters", "van den Heuvel", "Willemsen", "van der Velden", "Brouwer", "Smits", "de Groot", "Jonker",
+    "van Dijk", "Post", "Willems", "Prins", "Klein", "de Wit", "van den Berg", "van der Meer", "van Leeuwen", "de Boer",
+    "Mulder", "van der Linden", "Dekker", "van der Heijden", "van der Veen", "Kuiper", "Schouten", "Dijkstra", "Blom", "Vos",
+    "Hoekstra", "van Dam", "de Graaf", "Verhoeven", "van Beek", "Hendriks", "van der Wal", "Bos", "Kok", "Peeters",
+    "van der Horst", "Maas", "Smit", "van der Laan", "Jacobs", "Willemsen", "Vink", "Koster", "Martens", "Evers",
   ],
 
   uk: [
     "Shevchenko", "Kovalenko", "Bondar", "Tkachuk", "Melnyk", "Kravets", "Boyko", "Lysenko", "Marchuk", "Savchuk",
-    "Petrenko", "Danylko", "Koval", "Zinchenko", "Hnatiuk", "Romaniuk", "Tkachenko", "Moroz", "Klymenko", "Polishchuk",
-    "Kovalchuk", "Oliynyk", "Kravchenko", "Pavlenko", "Rudenko", "Hrytsenko", "Mazur", "Bondarenko", "Vasylenko", "Fedorenko",
-    "Litvinenko", "Sydorenko", "Marchenko", "Kuzmenko", "Onyshchenko", "Honchar", "Didenko", "Yaremchuk", "Melnyk", "Kostenko",
-    "Fedorchuk", "Berezovskyi", "Kushnir", "Tymoshenko", "Bilyk", "Semenyuk", "Rybak", "Zakharchenko", "Kucher", "Ostapenko",
+    "Petrenko", "Danylko", "Koval", "Zinchenko", "Hnatiuk", "Romaniuk", "Tkachenko", "Polishchuk", "Klymenko", "Moroz",
+    "Kovalchuk", "Oliynyk", "Kravchenko", "Sydorenko", "Pavlenko", "Honchar", "Kucherenko", "Mazur", "Fedorenko", "Rudenko",
+    "Vovk", "Melnyk", "Bereza", "Kushnir", "Hrytsenko", "Marchenko", "Yaremchuk", "Dovzhenko", "Levchenko", "Kozak",
+    "Bondarenko", "Tymoshenko", "Shapoval", "Ponomarenko", "Havryliuk", "Ostapenko", "Semenko", "Lytvyn", "Bilyk", "Chernenko",
   ],
 
   el: [
     "Papadakis", "Nikolaou", "Georgiou", "Vassiliou", "Dimou", "Pappas", "Christou", "Antoniou", "Makris", "Petrou",
-    "Sideris", "Manos", "Lazaris", "Fotiou", "Vlachos", "Rallis", "Papadopoulos", "Pappas", "Dimitriou", "Ioannidis",
-    "Konstantinidis", "Karagiannis", "Nikolidis", "Theodorou", "Alexiou", "Kostas", "Stavridis", "Mavridis", "Angelopoulos", "Kouris",
-    "Panagopoulos", "Christodoulou", "Spyridis", "Vrettos", "Galanis", "Katsaros", "Lykou", "Zervas", "Samaras", "Economou",
-    "Kiriakou", "Athanasiou", "Markou", "Vasilakis", "Daskalakis", "Poulos", "Manolis", "Raptis", "Tzimas", "Floros",
+    "Sideris", "Manos", "Lazaris", "Fotiou", "Vlachos", "Rallis", "Papadopoulos", "Papanikolaou", "Kostas", "Dimitriou",
+    "Karagiannis", "Ioannidis", "Kouris", "Alexiou", "Theodorou", "Stavrou", "Katsaros", "Mavridis", "Nikolaidis", "Panagiotou",
+    "Angelopoulos", "Vasilakis", "Galanis", "Zervas", "Kallias", "Kondylis", "Lazarou", "Mantzios", "Oikonomou", "Petridis",
+    "Raptis", "Spyridis", "Tsakiris", "Kourtidis", "Markopoulos", "Daskalakis", "Kontos", "Sarantis", "Kefalas", "Vrettos",
   ],
 
   hr: [
     "Horvat", "Kovačević", "Marić", "Jurić", "Novak", "Babić", "Perić", "Vuković", "Knežević", "Matić",
-    "Petrović", "Blažević", "Radić", "Šarić", "Tomić", "Barišić", "Kovač", "Pavlović", "Grgić", "Šimić",
-    "Lovrić", "Nikolić", "Vidović", "Božić", "Marković", "Janković", "Milić", "Klarić", "Špoljarić", "Đurić",
-    "Rukavina", "Perković", "Vlašić", "Mandić", "Matijević", "Bilić", "Pavić", "Radić", "Bašić", "Šarić",
-    "Zorić", "Vidaković", "Kovačević", "Knežević", "Marinović", "Tadić", "Vuković", "Babić", "Jurić", "Grubišić",
+    "Petrović", "Blažević", "Radić", "Šarić", "Tomić", "Barišić", "Kovač", "Pavlović", "Grgić", "Marković",
+    "Vidović", "Nikolić", "Božić", "Lovrić", "Šimić", "Pavić", "Rajić", "Milić", "Vidaković", "Klarić",
+    "Matičević", "Delić", "Vukelić", "Perković", "Jukić", "Kralj", "Čović", "Bilić", "Šarić", "Bašić",
+    "Vlašić", "Radičević", "Tadić", "Maras", "Grubišić", "Zorić", "Špoljarić", "Katić", "Bošnjak", "Brajković",
   ],
 
   sr: [
     "Jovanović", "Petrović", "Nikolić", "Ilić", "Marković", "Đorđević", "Stojanović", "Pavlović", "Kovačević", "Lukić",
-    "Ristić", "Simić", "Todorović", "Kostić", "Mitrović", "Vasić", "Stanković", "Milošević", "Popović", "Stefanović",
-    "Đukić", "Matić", "Mladenović", "Savić", "Maksimović", "Janković", "Živković", "Vuković", "Ilić", "Radović",
-    "Bogdanović", "Mihajlović", "Pantić", "Tomić", "Knežević", "Vučković", "Pavlović", "Perić", "Stojković", "Dimitrijević",
-    "Lazarević", "Radosavljević", "Obradović", "Mirković", "Nedeljković", "Kovačević", "Vasić", "Milovanović", "Đorđević", "Rakić",
+    "Ristić", "Simić", "Todorović", "Kostić", "Mitrović", "Vasić", "Popović", "Milošević", "Stanković", "Stefanović",
+    "Đukić", "Mandić", "Živković", "Savić", "Mladenović", "Janković", "Mihajlović", "Vuković", "Pantić", "Knežević",
+    "Dimitrijević", "Matić", "Ivić", "Radosavljević", "Lazarević", "Obradović", "Maksimović", "Aleksić", "Vučković", "Radović",
+    "Milovanović", "Nikolić", "Bošković", "Kovač", "Grujić", "Tomić", "Vujović", "Drašković", "Babić", "Stojković",
   ],
 
   pl: [
     "Kowalski", "Nowak", "Wiśniewski", "Wójcik", "Kamiński", "Lewandowski", "Zieliński", "Szymański", "Dąbrowski", "Kozłowski",
-    "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Zawadzki", "Sikora", "Jankowski", "Król", "Wieczorek", "Wróbel",
-    "Nowicki", "Pawłowski", "Michalski", "Kaczmarek", "Adamczyk", "Dudek", "Stępień", "Jaworski", "Malinowski", "Gajewski",
-    "Pawlik", "Ostrowski", "Tomaszewski", "Rutkowski", "Baran", "Wasilewski", "Mazurek", "Walczak", "Kubiak", "Lis",
-    "Czarnecki", "Zając", "Błaszczyk", "Szczepański", "Krupa", "Witkowski", "Sokołowski", "Marciniak", "Duda", "Urbański",
+    "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Zawadzki", "Sikora", "Jankowski", "Pawłowski", "Michalski", "Król",
+    "Wieczorek", "Jabłoński", "Wróbel", "Nowicki", "Majewski", "Olszewski", "Stępień", "Jaworski", "Malinowski", "Adamczyk",
+    "Dudek", "Górski", "Pawlik", "Walczak", "Rutkowski", "Baran", "Michalak", "Szczepański", "Wasilewski", "Czarnecki",
+    "Marciniak", "Kubiak", "Kaczmarek", "Piotrowski", "Bąk", "Krupa", "Lis", "Witkowski", "Sadowski", "Zając",
   ],
 }
 
-export type Song = {
+type ArtistType = "solo" | "duo" | "group"
+
+type Artist = {
+  id: string
+  name: string
+  type: ArtistType
+  members: string[]
+}
+
+type Song = {
   title: string
-  artist: string
+  artist: Artist
   genre: Genre
   native: boolean
-  // A "returning artist" who has competed before — shown with a star and gets
-  // a competitive edge on the night.
   veteran: boolean
 }
 
 // Quality edge granted to a returning (veteran) artist.
 export const VETERAN_BONUS = 7
 
+const GROUP_NAMES = [
+  "Northern Lights",
+  "Silverline",
+  "Neon Hearts",
+  "Midnight Avenue",
+  "Velvet Echo",
+  "Wildfire",
+  "The Satellites",
+  "Aurora",
+  "Electric Blue",
+  "Afterglow",
+  "The Waves",
+  "Moonlight",
+  "Starlight",
+  "Echo Point",
+  "Golden Hour",
+  "Nightfall",
+  "The Sparks",
+  "Crystal Sky",
+  "Red Horizon",
+  "Paper Planes",
+  "Blue Velvet",
+  "The Wild Ones",
+  "Sunset Avenue",
+  "Electric Hearts",
+  "The Dreamers",
+  "Silver Moon",
+  "Neon Avenue",
+  "Midnight Echo",
+  "The Voyagers",
+  "Firelight",
+]
+
 function generateArtistName(
   country: Country,
   rng: () => number,
   usedArtists: Set<string>,
-): string {
+): Artist {
   const first = FIRST_NAMES[country.lang] ?? FIRST_NAMES.default
   const last = LAST_NAMES[country.lang] ?? LAST_NAMES.default
 
-  for (let attempt = 0; attempt < 50; attempt++) {
-    const artist = `${pick(first, rng)} ${pick(last, rng)}`
+  const createMember = () => `${pick(first, rng)} ${pick(last, rng)}`
 
-    if (!usedArtists.has(artist)) {
-      return artist
+  const roll = rng()
+
+  // 25% → grupo
+  if (roll < 0.25) {
+    const memberCount = 3 + Math.floor(rng() * 4)
+    const members: string[] = []
+
+    let attempts = 0
+
+    while (members.length < memberCount && attempts < 50) {
+      const member = createMember()
+
+      if (!members.includes(member)) {
+        members.push(member)
+      }
+
+      attempts++
+    }
+
+    const name = pick(GROUP_NAMES, rng)
+
+    return {
+      id: `${country.id}-${name
+        .toLowerCase()
+        .replace(/\s+/g, "-")}-${members.length}`,
+      name,
+      type: "group",
+      members,
     }
   }
 
-  // Fallback in the unlikely event that the pool is exhausted.
-  return `${pick(first, rng)} ${pick(last, rng)}`
+  // 20% → dúo
+  if (roll < 0.45) {
+    const members = [createMember()]
+    let secondMember = createMember()
+
+    let attempts = 0
+    while (secondMember === members[0] && attempts < 10) {
+      secondMember = createMember()
+      attempts++
+    }
+
+    members.push(secondMember)
+
+    return {
+      id: `${country.id}-${members
+        .join("-")
+        .toLowerCase()
+        .replace(/\s+/g, "-")}`,
+      name: members.join(" & "),
+      type: "duo",
+      members,
+    }
+  }
+
+  // 55% → solista
+  const name = createMember()
+
+  return {
+    id: `${country.id}-${name.toLowerCase().replace(/\s+/g, "-")}`,
+    name,
+    type: "solo",
+    members: [name],
+  }
 }
 
 export function generateSong(
   countryId: string,
   year: number,
-  usedArtists: Set<string> = new Set(),
-  returningArtists: string[] = [],
+  usedArtists: Set<string>,
 ): Song {
   const c = getCountry(countryId) ?? COUNTRIES[0]
 
@@ -767,7 +862,7 @@ export function generateSong(
   if (veteran) {
     artist = pick(returningArtists, rng)
   } else {
-    artist = generateArtistName(c, rng, usedArtists)
+    const artist = generateArtistName(c, rng, usedArtists)
   }
 
   const nativeTitles = LANG_TITLES[c.lang]
