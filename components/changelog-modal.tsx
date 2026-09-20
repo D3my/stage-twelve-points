@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { translations, type Language } from "@/lib/i18n"
 
-export const APP_VERSION = "1.0.1"
+export const APP_VERSION = "1.0.2"
 
 const CHANGELOG = {
   en: [
@@ -15,6 +15,7 @@ const CHANGELOG = {
         "Improved randomness and artist repetition handling.",
         "Added bands and duos, with a chance for the band name to be in the country's official language.",
         "Semi-final correction. There are now two semi-finals instead of one featuring all countries that are not automatically qualified.",
+        "Hall of fame",
       ],
     
     },
@@ -44,6 +45,7 @@ const CHANGELOG = {
         "Corrección en la aleatoriedad y repetición de artistas.",
         "Añadidas bandas y duos, existe una probabilidad de que el nombre de la banda sea en el idioma oficial del país.",
         "Corrección semifinales. Ahora existen dos semifinales en vez de una con todos los paises no clasificados automáticamente.",
+        "Hall of fame",
       ],
     },
     {
