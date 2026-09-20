@@ -301,7 +301,10 @@ function PalmaresModal({
                 className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-x-4 py-3"
               >
                 <div className="flex items-center gap-2">
-                  <CountryBadge countryId={country.id} />
+                <CountryBadge
+                  country={country}
+                  size={32}
+                />
 
                   <span className="text-sm font-medium text-white">
                     {getCountryName(country.id, language)}
