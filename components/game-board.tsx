@@ -11,6 +11,7 @@ import {
   applyEffect,
   DECISIONS,
   COUNTRIES,
+  getRealEurovisionWins,
   generateSong,
   getCountry,
   getHostCity,
