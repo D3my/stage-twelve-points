@@ -793,7 +793,7 @@ const POINTS_TABLE = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1]
 const GRAND_FINAL_SPOTS = 26
 
 function blocAffinity(a: Country, b: Country): number {
-  return a.bloc === b.bloc ? 6 : 0
+  return a.bloc === b.bloc ? 4 : 0
 }
 
 // Runs 12→1 voting from a set of voters over a set of candidates, and writes
@@ -850,7 +850,7 @@ export function runContest(input: ContestInput): Entry[] {
         managed: true,
         song,
         finalStats,
-        quality: ratingOf(finalStats) + vet + rand(-3, 3),
+        quality: ratingOf(finalStats) * 0.9 + vet + rand(-5, 5),
         veteran: song.veteran,
         qualified: false,
         autoQualified: false,
@@ -867,7 +867,7 @@ export function runContest(input: ContestInput): Entry[] {
       managed: false,
       song,
       finalStats,
-      quality: ratingOf(finalStats) + vet + rand(-10, 10),
+      quality: ratingOf(finalStats) * 0.82 + c.strength * 0.18 + vet + rand(-14, 14),
       veteran: song.veteran,
       qualified: false,
       autoQualified: false,
@@ -889,7 +889,7 @@ export function runContest(input: ContestInput): Entry[] {
   // 3. Semi-final. Everyone else competes; all countries vote. The semi has a
   //    full scoreboard so eliminated acts get a real position and points.
   const semifinalists = entries.filter((e) => !e.autoQualified)
-  tallyVotes(participants, semifinalists, 14, (e, pts) => {
+  tallyVotes(participants, semifinalists, 18, (e, pts) => {
     e.semiPoints += pts
   })
   const rankedSemi = [...semifinalists].sort(
@@ -906,7 +906,7 @@ export function runContest(input: ContestInput): Entry[] {
 
   // 4. Grand Final voting. Every participant awards points to its top 10.
   const finalists = entries.filter((e) => e.qualified)
-  tallyVotes(participants, finalists, 16, (e, pts) => {
+  tallyVotes(participants, finalists, 20, (e, pts) => {
     e.points += pts
   })
   finalists.sort((a, b) => b.points - a.points || b.quality - a.quality)
