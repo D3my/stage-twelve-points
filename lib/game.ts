@@ -1524,7 +1524,7 @@ function generateGroupName(
   rng: () => number,
 ): string {
   // 70% → nombre internacional en inglés
-  if (rng() < 0.7) {
+  if (rng() < 0.2) {
     return pick(ENGLISH_GROUP_NAMES, rng)
   }
 
