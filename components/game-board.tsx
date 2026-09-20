@@ -75,13 +75,6 @@ function HistoryModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
       onClick={onClose}
     >
-      <button
-  type="button"
-  onClick={onOpenPalmares}
-  className="rounded-lg border border-yellow-300/40 bg-yellow-400/10 px-3 py-1.5 text-xs font-semibold text-yellow-100 transition hover:border-yellow-200 hover:bg-yellow-400/20 hover:text-white"
->
-  🏆 {language === "es" ? "Palmarés" : "Hall of Fame"}
-</button>
       <div
         className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-white/15 bg-[#160a20] p-5 shadow-2xl"
         onClick={(event) => event.stopPropagation()}
@@ -105,6 +98,14 @@ function HistoryModal({
             {t.close}
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={onOpenPalmares}
+          className="mb-5 w-full rounded-lg border border-yellow-300/40 bg-yellow-400/10 px-3 py-2 text-xs font-semibold text-yellow-100 transition hover:border-yellow-200 hover:bg-yellow-400/20 hover:text-white"
+        >
+          🏆 {language === "es" ? "Palmarés" : "Hall of Fame"}
+        </button>
 
         <div className="space-y-5">
           {seasons.map((season) => {
@@ -176,10 +177,10 @@ function HistoryModal({
                             </div>
 
                             <div className="truncate text-xs text-white/70">
-                                {entry.song.artist.name}
-                                {" · “"}
-                                {entry.song.title}
-                                {"”"}
+                              {entry.song.artist.name}
+                              {" · “"}
+                              {entry.song.title}
+                              {"”"}
                             </div>
                           </div>
 
@@ -215,12 +216,10 @@ function HistoryModal({
 function PalmaresModal({
   gameWins,
   onClose,
-  t,
   language,
 }: {
   gameWins: Record<string, number>
   onClose: () => void
-  t: (typeof translations)[Language]
   language: Language
 }) {
   const countries = COUNTRIES.map((country) => {
@@ -241,13 +240,23 @@ function PalmaresModal({
   )
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-      <div className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-2xl">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={language === "es" ? "Palmarés" : "Hall of Fame"}
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex items-center justify-between border-b border-white/10 p-5">
           <div>
             <h2 className="text-xl font-bold text-white">
               🏆 {language === "es" ? "Palmarés" : "Hall of Fame"}
             </h2>
+
             <p className="mt-1 text-xs text-slate-400">
               {language === "es"
                 ? "Victorias reales de Eurovisión y victorias conseguidas en el juego."
@@ -266,13 +275,18 @@ function PalmaresModal({
 
         <div className="overflow-y-auto p-5">
           <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-4 border-b border-white/10 pb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-            <span>{language === "es" ? "País" : "Country"}</span>
+            <span>
+              {language === "es" ? "País" : "Country"}
+            </span>
+
             <span className="text-center">
               {language === "es" ? "Reales" : "Real"}
             </span>
+
             <span className="text-center">
               {language === "es" ? "Juego" : "Game"}
             </span>
+
             <span className="text-center">
               {language === "es" ? "Total" : "Total"}
             </span>
@@ -286,6 +300,7 @@ function PalmaresModal({
               >
                 <div className="flex items-center gap-2">
                   <CountryBadge countryId={country.id} />
+
                   <span className="text-sm font-medium text-white">
                     {getCountryName(country.id, language)}
                   </span>
