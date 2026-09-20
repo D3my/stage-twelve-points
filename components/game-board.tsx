@@ -601,6 +601,7 @@ export function GameBoard() {
     setEntries([])
     setTrophies([])
     setHistory([])
+    setGameWins({})
     setArtistHistory({})
     setHistoryOpen(false)
     setLanguageOpen(false)
@@ -774,6 +775,7 @@ export function GameBoard() {
         />
 
         {historyModal}
+        {palmaresModal}
       </div>
     )
   }
@@ -846,6 +848,7 @@ export function GameBoard() {
         </div>
 
         {historyModal}
+        {palmaresModal}
       </div>
     )
   }
@@ -866,6 +869,7 @@ export function GameBoard() {
         />
 
         {historyModal}
+        {palmaresModal}
       </div>
     )
   }
