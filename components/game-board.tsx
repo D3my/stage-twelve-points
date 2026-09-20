@@ -22,6 +22,7 @@ import {
   START_YEAR,
   type Decision,
   type Entry,
+  type Artist,
   type Song,
   type Stats,
 } from "@/lib/game"
@@ -166,7 +167,13 @@ function HistoryModal({
                             </div>
 
                             <div className="truncate text-xs text-white/70">
-                              {entry.song.artist} · “{entry.song.title}”
+                                {entry.song.artist.name}
+                                {entry.song.artist.type === "duo" && " · Dúo"}
+                                {entry.song.artist.type === "group" &&
+                                  ` · Grupo (${entry.song.artist.members.length})`}
+                                {" · “"}
+                                {entry.song.title}
+                                {"”"}
                             </div>
                           </div>
 
@@ -300,7 +307,7 @@ export function GameBoard() {
   const [entries, setEntries] = useState<Entry[]>([])
   const [trophies, setTrophies] = useState<Trophy[]>([])
   const [history, setHistory] = useState<SeasonHistory[]>([])
-  const [artistHistory, setArtistHistory] = useState<Record<string, string[]>>({})
+  const [artistHistory, setArtistHistory] = useState<Record<string, Artist[]>>({})
   const [historyOpen, setHistoryOpen] = useState(false)
 
   const wins = trophies.filter(
@@ -317,22 +324,20 @@ export function GameBoard() {
       const returningArtists =
         artistHistory[country.id] ?? []
   
-        const song = generateSong(
-          country.id,
-          year,
-          usedArtists,
-        )
+      const song = generateSong(
+        country.id,
+        year,
+        usedArtists,
+        returningArtists,
+      )
   
-        for (const country of participants) {
-          const song = generateSong(
-            country.id,
-            year,
-            usedArtists,
-          )
-        
-          songs[country.id] = song
-          usedArtists.add(song.artist.id)
-        }
+      songs[country.id] = song
+  
+      // Los veteranos ya existen, así que no los volvemos
+      // a registrar como artistas nuevos.
+      if (!song.veteran) {
+        usedArtists.add(song.artist.id)
+      }
     }
   
     return {
@@ -413,7 +418,7 @@ export function GameBoard() {
       
           const existing = next[country.id] ?? []
       
-          if (!existing.includes(song.artist)) {
+          if (!existing.some((artist) => artist.id === song.artist.id)) {
             next[country.id] = [
               ...existing,
               song.artist,

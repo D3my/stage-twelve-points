@@ -710,9 +710,9 @@ const LAST_NAMES: Record<string, string[]> = {
   ],
 }
 
-type ArtistType = "solo" | "duo" | "group"
+export type ArtistType = "solo" | "duo" | "group"
 
-type Artist = {
+export type Artist = {
   id: string
   name: string
   type: ArtistType
@@ -771,18 +771,15 @@ function generateArtistName(
   const first = FIRST_NAMES[country.lang] ?? FIRST_NAMES.default
   const last = LAST_NAMES[country.lang] ?? LAST_NAMES.default
 
-  const createMember = () => `${pick(first, rng)} ${pick(last, rng)}`
+  const createMember = () =>
+    `${pick(first, rng)} ${pick(last, rng)}`
 
-  const roll = rng()
-
-  // 25% → grupo
-  if (roll < 0.25) {
-    const memberCount = 3 + Math.floor(rng() * 4)
+  const createUniqueMemberList = (count: number) => {
     const members: string[] = []
 
     let attempts = 0
 
-    while (members.length < memberCount && attempts < 50) {
+    while (members.length < count && attempts < 100) {
       const member = createMember()
 
       if (!members.includes(member)) {
@@ -792,12 +789,37 @@ function generateArtistName(
       attempts++
     }
 
+    return members
+  }
+
+  const createUniqueArtistId = (name: string) => {
+    const base = `${country.id}-${name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(/^-|-$/g, "")}`
+
+    let id = base
+    let suffix = 2
+
+    while (usedArtists.has(id)) {
+      id = `${base}-${suffix}`
+      suffix++
+    }
+
+    return id
+  }
+
+  const roll = rng()
+
+  // 25% → grupo
+  if (roll < 0.25) {
+    const memberCount = 3 + Math.floor(rng() * 4)
+    const members = createUniqueMemberList(memberCount)
     const name = pick(GROUP_NAMES, rng)
+    const id = createUniqueArtistId(name)
 
     return {
-      id: `${country.id}-${name
-        .toLowerCase()
-        .replace(/\s+/g, "-")}-${members.length}`,
+      id,
       name,
       type: "group",
       members,
@@ -806,36 +828,28 @@ function generateArtistName(
 
   // 20% → dúo
   if (roll < 0.45) {
-    const members = [createMember()]
-    let secondMember = createMember()
-
-    let attempts = 0
-    while (secondMember === members[0] && attempts < 10) {
-      secondMember = createMember()
-      attempts++
-    }
-
-    members.push(secondMember)
+    const members = createUniqueMemberList(2)
+    const name = members.join(" & ")
+    const id = createUniqueArtistId(name)
 
     return {
-      id: `${country.id}-${members
-        .join("-")
-        .toLowerCase()
-        .replace(/\s+/g, "-")}`,
-      name: members.join(" & "),
+      id,
+      name,
       type: "duo",
       members,
     }
   }
 
   // 55% → solista
-  const name = createMember()
+  const members = createUniqueMemberList(1)
+  const name = members[0]
+  const id = createUniqueArtistId(name)
 
   return {
-    id: `${country.id}-${name.toLowerCase().replace(/\s+/g, "-")}`,
+    id,
     name,
     type: "solo",
-    members: [name],
+    members,
   }
 }
 
@@ -843,26 +857,31 @@ export function generateSong(
   countryId: string,
   year: number,
   usedArtists: Set<string>,
+  returningArtists: Artist[] = [],
 ): Song {
   const c = getCountry(countryId) ?? COUNTRIES[0]
 
-  // We deliberately do not seed artist generation with country + year.
-  // This makes every new season capable of producing a genuinely new artist.
+  // Los artistas se generan de forma aleatoria.
+  // Las canciones mantienen su generación independiente.
   const rng = Math.random
 
   const genre = pick(GENRES, rng)
 
-  // Around 8% chance of bringing back an artist who represented this
-  // country in a previous season.
+  // 8% de posibilidades de recuperar un artista anterior
+  // del mismo país.
   const veteran =
     returningArtists.length > 0 && rng() < 0.08
 
-  let artist: string
+  let artist: Artist
 
   if (veteran) {
     artist = pick(returningArtists, rng)
   } else {
-    const artist = generateArtistName(c, rng, usedArtists)
+    artist = generateArtistName(
+      c,
+      rng,
+      usedArtists,
+    )
   }
 
   const nativeTitles = LANG_TITLES[c.lang]
