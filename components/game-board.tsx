@@ -300,6 +300,7 @@ export function GameBoard() {
   const [entries, setEntries] = useState<Entry[]>([])
   const [trophies, setTrophies] = useState<Trophy[]>([])
   const [history, setHistory] = useState<SeasonHistory[]>([])
+  const [artistHistory, setArtistHistory] = useState<Record<string, string[]>>({})
   const [historyOpen, setHistoryOpen] = useState(false)
 
   const wins = trophies.filter(
@@ -309,17 +310,30 @@ export function GameBoard() {
   const season = useMemo(() => {
     const { participants, withdrawals } = getSeason(year, host)
     const songs: Record<string, Song> = {}
-
+  
+    const usedArtists = new Set<string>()
+  
     for (const country of participants) {
-      songs[country.id] = generateSong(country.id, year)
+      const returningArtists =
+        artistHistory[country.id] ?? []
+  
+      const song = generateSong(
+        country.id,
+        year,
+        usedArtists,
+        returningArtists,
+      )
+  
+      songs[country.id] = song
+      usedArtists.add(song.artist)
     }
-
+  
     return {
       participants,
       withdrawals,
       songs,
     }
-  }, [year, host])
+  }, [year, host, artistHistory])
 
   function beginSeason(ids: string[]) {
     const deck = shuffle(DECISIONS)
@@ -382,6 +396,27 @@ export function GameBoard() {
         (entry) => entry.managed,
       )
 
+      setArtistHistory((previous) => {
+        const next = { ...previous }
+      
+        for (const country of season.participants) {
+          const song = season.songs[country.id]
+      
+          if (!song) continue
+      
+          const existing = next[country.id] ?? []
+      
+          if (!existing.includes(song.artist)) {
+            next[country.id] = [
+              ...existing,
+              song.artist,
+            ]
+          }
+        }
+      
+        return next
+      })
+
       setEntries(result)
 
       setHistory((previous) => [
@@ -439,6 +474,7 @@ export function GameBoard() {
     setEntries([])
     setTrophies([])
     setHistory([])
+    setArtistHistory({})
     setHistoryOpen(false)
     setLanguageOpen(false)
   }
