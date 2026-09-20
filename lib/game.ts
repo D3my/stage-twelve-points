@@ -1894,30 +1894,69 @@ export function runContest(input: ContestInput): Entry[] {
     e.autoQualified = true
   })
 
-  // 3. Semi-final. Everyone else competes; all countries vote. The semi has a
-  //    full scoreboard so eliminated acts get a real position and points.
+  // 3. Two semi-finals.
+  //
+  // Only countries that are not directly qualified compete in the semis.
+  // They are split as evenly as possible between two semi-finals.
+  // Each semi-final has its own ranking, so a country's position can never
+  // exceed the number of countries actually competing in that semi.
   const semifinalists = entries.filter((e) => !e.autoQualified)
-  tallyVotes(participants, semifinalists, 18, (e, pts) => {
-    e.semiPoints += pts
+
+  const semi1: Entry[] = []
+  const semi2: Entry[] = []
+
+  // Alternate countries between the two semi-finals to keep them balanced.
+  semifinalists.forEach((entry, index) => {
+    if (index % 2 === 0) {
+      semi1.push(entry)
+    } else {
+      semi2.push(entry)
+    }
   })
-  const rankedSemi = [...semifinalists].sort(
-    (a, b) => b.semiPoints - a.semiPoints || b.quality - a.quality,
-  )
-  rankedSemi.forEach((e, i) => {
-    e.semiPosition = i + 1
-  })
-  const finalSpots = Math.min(GRAND_FINAL_SPOTS, entries.length)
-  const spotsLeft = Math.max(0, finalSpots - auto.length)
-  rankedSemi.slice(0, spotsLeft).forEach((e) => {
-    e.qualified = true
-  })
+
+  const runSemiFinal = (semi: Entry[]) => {
+    // Reset semi-final points in case this helper is ever reused.
+    semi.forEach((e) => {
+      e.semiPoints = 0
+      e.semiPosition = 0
+    })
+
+    // All participating countries vote in the semi-final.
+    tallyVotes(participants, semi, 18, (e, pts) => {
+      e.semiPoints += pts
+    })
+
+    // Rank ONLY against the countries in this semi-final.
+    const ranked = [...semi].sort(
+      (a, b) =>
+        b.semiPoints - a.semiPoints ||
+        b.quality - a.quality,
+    )
+
+    ranked.forEach((e, index) => {
+      e.semiPosition = index + 1
+    })
+
+    // Top 10 qualify from each semi-final.
+    ranked.slice(0, Math.min(10, ranked.length)).forEach((e) => {
+      e.qualified = true
+    })
+  }
+
+  runSemiFinal(semi1)
+  runSemiFinal(semi2)
 
   // 4. Grand Final voting. Every participant awards points to its top 10.
   const finalists = entries.filter((e) => e.qualified)
+
   tallyVotes(participants, finalists, 20, (e, pts) => {
     e.points += pts
   })
-  finalists.sort((a, b) => b.points - a.points || b.quality - a.quality)
+
+  finalists.sort(
+    (a, b) => b.points - a.points || b.quality - a.quality,
+  )
+
   finalists.forEach((f, i) => {
     f.position = i + 1
   })
