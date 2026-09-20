@@ -168,9 +168,6 @@ function HistoryModal({
 
                             <div className="truncate text-xs text-white/70">
                                 {entry.song.artist.name}
-                                {entry.song.artist.type === "duo" && " · Dúo"}
-                                {entry.song.artist.type === "group" &&
-                                  ` · Grupo (${entry.song.artist.members.length})`}
                                 {" · “"}
                                 {entry.song.title}
                                 {"”"}
