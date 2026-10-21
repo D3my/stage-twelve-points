@@ -311,7 +311,7 @@ function PalmaresModal({
                 />
 
                   <span className="text-sm font-medium text-white">
-                    {getCountryName(country.id, language)}
+                    {getCountryName(country.id, country.name, language)}
                   </span>
                 </div>
 
@@ -600,7 +600,13 @@ export function GameBoard() {
           entry,
           previousPlacements[entry.countryId],
         )
-        const delta = successful ? 6 : -6
+        // Low-prestige countries get a gentler recovery curve: a success gives
+        // them a stronger boost, while a poor result is less punishing.
+        const delta = country.strength < 50
+          ? (successful ? 8 : -4)
+          : country.strength < 70
+            ? (successful ? 6 : -6)
+            : (successful ? 5 : -7)
         return { entry, placement, delta }
       })
 
@@ -729,7 +735,6 @@ export function GameBoard() {
     <PalmaresModal
       gameWins={gameWins}
       onClose={() => setPalmaresOpen(false)}
-      t={t}
       language={language}
     />
   ) : null

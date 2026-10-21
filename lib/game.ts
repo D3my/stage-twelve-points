@@ -1402,7 +1402,7 @@ const GROUP_NAMES: Record<string, string[]> = {
   uk: [
     "Північне Сяйво",
     "Срібне Серце",
-    "Нічний Вітер",
+    "��ічний Вітер",
     "Червоне Небо",
     "Вільні Душі",
     "Мандрівники",
@@ -1939,7 +1939,7 @@ export function runContest(input: ContestInput): Entry[] {
 
   // 1. Build every participant into an entry with a quality score.
   const entries: Entry[] = participants.map((c) => {
-    const song = songs[c.id] ?? generateSong(c.id, 0)
+    const song = songs[c.id] ?? generateSong(c.id, 0, new Set())
     const vet = song.veteran ? VETERAN_BONUS : 0
     const m = managedMap.get(c.id)
     if (m) {
