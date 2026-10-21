@@ -17,6 +17,8 @@ import {
   getHostCity,
   getCountryBudget,
   getCountryReputation,
+  getInitialPrestige,
+  clampPrestige,
   isSuccessfulResult,
   getSeasonTitle,
   INITIAL_REPUTATION,
@@ -443,8 +445,9 @@ export function GameBoard() {
   const [playerReputation, setPlayerReputation] = useState(INITIAL_REPUTATION)
   const [reputationHistory, setReputationHistory] = useState<number[]>([])
   const [previousPlacements, setPreviousPlacements] = useState<Record<string, number>>({})
-  const [countryStats, setCountryStats] = useState<Record<string, { budget: number; reputation: number }>>(
+  const [countryStats, setCountryStats] = useState<Record<string, { budget: number; reputation: number; prestige: number }>>(
     () => Object.fromEntries(COUNTRIES.map((country) => [country.id, {
+      prestige: getInitialPrestige(country),
       budget: getCountryBudget(country),
       reputation: getCountryReputation(country),
     }])),
@@ -541,8 +544,14 @@ export function GameBoard() {
           countryId: a.countryId,
           stats: a.stats,
         })),
-        hostId: host,
-      })
+          hostId: host,
+          prestigeByCountry: Object.fromEntries(
+            COUNTRIES.map((country) => [
+              country.id,
+              countryStats[country.id]?.prestige ?? getInitialPrestige(country),
+            ]),
+          ),
+        })
 
       const managedEntries = result.filter(
         (entry) => entry.managed,
@@ -624,12 +633,20 @@ export function GameBoard() {
       setPlayerReputation((previous) => Math.max(INITIAL_REPUTATION, Math.min(100, previous + reputationDelta)))
       setCountryStats((previous) => {
         const next = { ...previous }
-        for (const { entry, delta } of managedResults) {
+        for (const entry of result) {
           const current = next[entry.countryId]
+          const country = getCountry(entry.countryId)
           if (!current) continue
+          const placement = entry.qualified ? entry.position : entry.semiPosition
+          const prestigeDelta = entry.qualified
+            ? placement <= 5 ? 2 : placement <= 10 ? 1 : placement <= 15 ? 0 : -1
+            : -1
+          const prestige = clampPrestige(current.prestige + prestigeDelta)
+          const managedDelta = managedResults.find((item) => item.entry.countryId === entry.countryId)?.delta ?? 0
           next[entry.countryId] = {
-            budget: Math.max(10000, current.budget + delta * 500),
-            reputation: Math.max(0, Math.min(100, current.reputation + delta)),
+            prestige,
+            budget: Math.max(55000, Math.round(prestige * 1000) + managedDelta * 500),
+            reputation: getCountryReputation(country, prestige),
           }
         }
         return next
@@ -682,6 +699,7 @@ export function GameBoard() {
     setReputationHistory([])
     setPreviousPlacements({})
     setCountryStats(Object.fromEntries(COUNTRIES.map((country) => [country.id, {
+      prestige: getInitialPrestige(country),
       budget: getCountryBudget(country),
       reputation: getCountryReputation(country),
     }])))

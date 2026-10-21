@@ -55,12 +55,15 @@ function pick<T>(arr: T[], rng: () => number): T {
 
 // ---------- Countries (EBU / Eurovision participants) ----------
 
+export const MIN_PRESTIGE = 55
+export const MAX_PRESTIGE = 90
+
 export type Country = {
   id: string
   name: string
   code: string
   colors: [string, string]
-  // Historical pedigree at the contest (0-100). Seeds acts and AI results.
+  // Historical pedigree used as each country's starting prestige.
   strength: number
   bloc: string
   // Host city used when this country wins and hosts the next contest.
@@ -224,12 +227,20 @@ export function getCountry(id: string): Country {
   return COUNTRIES.find((c) => c.id === id) as Country
 }
 
-export function getCountryBudget(country: Country): number {
-  return Math.round(country.strength * 1000)
+export function clampPrestige(value: number): number {
+  return Math.max(MIN_PRESTIGE, Math.min(MAX_PRESTIGE, Math.round(value)))
 }
 
-export function getCountryReputation(country: Country): number {
-  return Math.max(20, Math.min(100, country.strength + 10))
+export function getInitialPrestige(country: Country): number {
+  return clampPrestige(country.strength + 13)
+}
+
+export function getCountryBudget(country: Country, prestige = getInitialPrestige(country)): number {
+  return Math.round(clampPrestige(prestige) * 1000)
+}
+
+export function getCountryReputation(country: Country, prestige = getInitialPrestige(country)): number {
+  return Math.max(20, Math.min(100, clampPrestige(prestige) + 10))
 }
 
 export function getCountryAccessRequirement(country: Country): number {
@@ -1286,7 +1297,7 @@ const GROUP_NAMES: Record<string, string[]> = {
     "Χωρίς Σύνορα",
     "Φωνές της Θάλασσας",
     "Κόκκινο Φεγγάρι",
-    "Αιώνιο Καλοκαίρι",
+    "Αιών��ο Καλοκαίρι",
     "Νέα Αυγή",
     "Ασημένιο Φεγγάρι",
     "Άγρια Καρδιά",
@@ -1402,7 +1413,7 @@ const GROUP_NAMES: Record<string, string[]> = {
   uk: [
     "Північне Сяйво",
     "Срібне Серце",
-    "��ічний Вітер",
+    "����ічний Вітер",
     "Червоне Небо",
     "Вільні Душі",
     "Мандрівники",
@@ -1856,8 +1867,8 @@ function rand(min: number, max: number): number {
 }
 
 // Fresh act each year, seeded by the country's pedigree and its chosen song.
-export function seedStats(country: Country, song: Song): Stats {
-  const s = country.strength
+export function seedStats(country: Country, song: Song, prestige = getInitialPrestige(country)): Stats {
+  const s = clampPrestige(prestige)
   return {
     song: clamp(Math.round(s + song.genre.song + rand(-8, 8))),
     staging: clamp(Math.round(s + song.genre.staging + rand(-8, 8))),
@@ -1925,6 +1936,7 @@ export type ContestInput = {
   songs: Record<string, Song>
   managed: { countryId: string; stats: Stats }[]
   hostId: string
+  prestigeByCountry?: Record<string, number>
 }
 
 /**
@@ -1934,7 +1946,7 @@ export type ContestInput = {
  * 12,10,8,7,6,5,4,3,2,1 to its top ten finalists).
  */
 export function runContest(input: ContestInput): Entry[] {
-  const { participants, songs, managed, hostId } = input
+  const { participants, songs, managed, hostId, prestigeByCountry = {} } = input
   const managedMap = new Map(managed.map((m) => [m.countryId, m]))
 
   // 1. Build every participant into an entry with a quality score.
@@ -1961,13 +1973,13 @@ export function runContest(input: ContestInput): Entry[] {
         event,
       }
     }
-    const finalStats = seedStats(c, song)
-    return {
-      countryId: c.id,
-      managed: false,
-      song,
-      finalStats,
-      quality: ratingOf(finalStats) * 0.82 + c.strength * 0.18 + vet + rand(-14, 14),
+  const finalStats = seedStats(c, song, prestigeByCountry[c.id])
+  return {
+  countryId: c.id,
+  managed: false,
+  song,
+  finalStats,
+  quality: ratingOf(finalStats) * 0.82 + (prestigeByCountry[c.id] ?? getInitialPrestige(c)) * 0.18 + vet + rand(-14, 14),
       veteran: song.veteran,
       qualified: false,
       autoQualified: false,

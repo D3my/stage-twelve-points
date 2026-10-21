@@ -10,6 +10,7 @@ import {
   getCountryAccessRequirement,
   getCountryBudget,
   getCountryReputation,
+  getInitialPrestige,
   getMaxRosterForReputation,
   type Country,
   type Song,
@@ -51,7 +52,7 @@ export function CountrySelect({
   onConfirm: (ids: string[]) => void
   language?: Language
   playerReputation?: number
-  countryStats?: Record<string, { budget: number; reputation: number }>
+  countryStats?: Record<string, { budget: number; reputation: number; prestige: number }>
 }) {
   const [selected, setSelected] = useState<string[]>(initial)
 
@@ -133,13 +134,14 @@ export function CountrySelect({
         {participants.map((c) => {
           const isSel = selected.includes(c.id)
           const stats = countryStats?.[c.id] ?? {
+            prestige: getInitialPrestige(c),
             budget: getCountryBudget(c),
             reputation: getCountryReputation(c),
           }
           const requirement = getCountryAccessRequirement(c)
           const locked = currentReputation < requirement
           const disabled =
-            !isSel && (selected.length >= MAX_ROSTER || locked)
+            !isSel && (selected.length >= selectionLimit || locked)
 
           const song = songs[c.id]
 
@@ -179,7 +181,7 @@ export function CountrySelect({
                   </span>
 
                   <span className="shrink-0 text-[9px] font-semibold text-cyan-200">
-                    €{stats.budget.toLocaleString()} · REP {stats.reputation}
+                    €{stats.budget.toLocaleString()} · PRESTIGE {stats.prestige}
                   </span>
                 </span>
 
