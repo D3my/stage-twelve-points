@@ -19,6 +19,18 @@ export const STAT_ORDER: StatKey[] = ["song", "staging"]
 export const STAT_MIN = 0
 export const STAT_MAX = 100
 
+export const PRESTIGE_MIN = 55
+export const PRESTIGE_MAX = 90
+
+export function initialPrestige(): Record<string, number> {
+  return Object.fromEntries(
+    COUNTRIES.map((country) => [
+      country.id,
+      Math.max(PRESTIGE_MIN, Math.min(PRESTIGE_MAX, country.strength)),
+    ]),
+  )
+}
+
 // ---------- Seeded RNG (stable songs & line-ups per year) ----------
 
 function hashSeed(str: string): number {
@@ -1818,8 +1830,12 @@ function rand(min: number, max: number): number {
 }
 
 // Fresh act each year, seeded by the country's pedigree and its chosen song.
-export function seedStats(country: Country, song: Song): Stats {
-  const s = country.strength
+export function seedStats(
+  country: Country,
+  song: Song,
+  prestige = country.strength,
+): Stats {
+  const s = Math.max(PRESTIGE_MIN, Math.min(PRESTIGE_MAX, prestige))
   return {
     song: clamp(Math.round(s + song.genre.song + rand(-8, 8))),
     staging: clamp(Math.round(s + song.genre.staging + rand(-8, 8))),
@@ -1887,6 +1903,7 @@ export type ContestInput = {
   songs: Record<string, Song>
   managed: { countryId: string; stats: Stats }[]
   hostId: string
+  prestige?: Record<string, number>
 }
 
 /**
@@ -1896,7 +1913,7 @@ export type ContestInput = {
  * 12,10,8,7,6,5,4,3,2,1 to its top ten finalists).
  */
 export function runContest(input: ContestInput): Entry[] {
-  const { participants, songs, managed, hostId } = input
+  const { participants, songs, managed, hostId, prestige = {} } = input
   const managedMap = new Map(managed.map((m) => [m.countryId, m]))
 
   // 1. Build every participant into an entry with a quality score.
@@ -1923,7 +1940,7 @@ export function runContest(input: ContestInput): Entry[] {
         event,
       }
     }
-    const finalStats = seedStats(c, song)
+    const finalStats = seedStats(c, song, prestige[c.id])
     return {
       countryId: c.id,
       managed: false,
@@ -2016,6 +2033,38 @@ export function runContest(input: ContestInput): Entry[] {
   })
 
   return entries
+}
+
+export function evolvePrestige(
+  previous: Record<string, number>,
+  entries: Entry[],
+): Record<string, number> {
+  const next = { ...previous }
+
+  for (const entry of entries) {
+    const rank = entry.qualified ? entry.position : entry.semiPosition
+    const fieldSize = entry.qualified
+      ? entries.filter((candidate) => candidate.qualified).length
+      : entries.filter((candidate) => !candidate.autoQualified).length
+    const normalizedRank = fieldSize > 1 ? (rank - 1) / (fieldSize - 1) : 0
+    const delta = entry.qualified
+      ? entry.position === 1
+        ? 4
+        : entry.position <= 3
+          ? 2
+          : normalizedRank <= 0.5
+            ? 1
+            : -1
+      : -2
+    const current = previous[entry.countryId] ?? getCountry(entry.countryId).strength
+    const gentleRegression = current > 70 ? -0.15 : current < 70 ? 0.15 : 0
+    next[entry.countryId] = Math.max(
+      PRESTIGE_MIN,
+      Math.min(PRESTIGE_MAX, Math.round(current + delta + gentleRegression)),
+    )
+  }
+
+  return next
 }
 
 // ---------- Outcome flavour ----------

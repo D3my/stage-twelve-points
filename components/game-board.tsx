@@ -19,6 +19,8 @@ import {
   getSeason,
   runContest,
   seedStats,
+  evolvePrestige,
+  initialPrestige,
   shuffle,
   START_HOST,
   START_YEAR,
@@ -436,6 +438,7 @@ export function GameBoard() {
   const [historyOpen, setHistoryOpen] = useState(false)
   const [palmaresOpen, setPalmaresOpen] = useState(false)
   const [gameWins, setGameWins] = useState<Record<string, number>>({})
+  const [prestige, setPrestige] = useState<Record<string, number>>(initialPrestige)
 
   const wins = trophies.filter(
     (trophy) => trophy.position === 1,
@@ -529,6 +532,7 @@ export function GameBoard() {
           stats: a.stats,
         })),
         hostId: host,
+        prestige,
       })
 
       const managedEntries = result.filter(
@@ -556,6 +560,7 @@ export function GameBoard() {
         return next
       })
 
+      setPrestige((previous) => evolvePrestige(previous, result))
       setEntries(result)
 
       setHistory((previous) => [
@@ -622,6 +627,7 @@ export function GameBoard() {
     setTrophies([])
     setHistory([])
     setGameWins({})
+    setPrestige(initialPrestige())
     setArtistHistory({})
     setHistoryOpen(false)
     setLanguageOpen(false)
