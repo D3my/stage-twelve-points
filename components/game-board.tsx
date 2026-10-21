@@ -15,6 +15,8 @@ import {
   generateSong,
   getCountry,
   getHostCity,
+  getCountryBudget,
+  getCountryReputation,
   getSeasonTitle,
   getSeason,
   runContest,
@@ -436,6 +438,14 @@ export function GameBoard() {
   const [historyOpen, setHistoryOpen] = useState(false)
   const [palmaresOpen, setPalmaresOpen] = useState(false)
   const [gameWins, setGameWins] = useState<Record<string, number>>({})
+  const [playerReputation, setPlayerReputation] = useState(20)
+  const [reputationHistory, setReputationHistory] = useState<number[]>([])
+  const [countryStats, setCountryStats] = useState<Record<string, { budget: number; reputation: number }>>(
+    () => Object.fromEntries(COUNTRIES.map((country) => [country.id, {
+      budget: getCountryBudget(country),
+      reputation: getCountryReputation(country),
+    }])),
+  )
 
   const wins = trophies.filter(
     (trophy) => trophy.position === 1,
@@ -579,6 +589,29 @@ export function GameBoard() {
         })),
       ])
 
+      const managedResults = managedEntries.map((entry) => {
+        const placement = entry.qualified ? entry.position : entry.semiPosition
+        const delta = placement <= 3 ? 8 : placement <= 10 ? 3 : placement >= 20 ? -8 : -2
+        return { entry, delta }
+      })
+      const reputationDelta = managedResults.length
+        ? Math.round(managedResults.reduce((sum, item) => sum + item.delta, 0) / managedResults.length)
+        : 0
+      setReputationHistory((previous) => [...previous, reputationDelta].slice(-3))
+      setPlayerReputation((previous) => Math.max(0, Math.min(100, previous + reputationDelta)))
+      setCountryStats((previous) => {
+        const next = { ...previous }
+        for (const { entry, delta } of managedResults) {
+          const current = next[entry.countryId]
+          if (!current) continue
+          next[entry.countryId] = {
+            budget: Math.max(10000, current.budget + delta * 500),
+            reputation: Math.max(0, Math.min(100, current.reputation + delta)),
+          }
+        }
+        return next
+      })
+
       const winner = result.find(
         (entry) => entry.position === 1,
       )
@@ -622,6 +655,12 @@ export function GameBoard() {
     setTrophies([])
     setHistory([])
     setGameWins({})
+    setPlayerReputation(20)
+    setReputationHistory([])
+    setCountryStats(Object.fromEntries(COUNTRIES.map((country) => [country.id, {
+      budget: getCountryBudget(country),
+      reputation: getCountryReputation(country),
+    }])))
     setArtistHistory({})
     setHistoryOpen(false)
     setLanguageOpen(false)
@@ -772,6 +811,17 @@ export function GameBoard() {
           {exitButton}
         </div>
 
+        <div className="rounded-xl border border-fuchsia-300/20 bg-fuchsia-400/[0.08] p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-fuchsia-200/80">Your reputation</span>
+            <span className="text-lg font-black text-white">{playerReputation}/100</span>
+          </div>
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div className="h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-cyan-400" style={{ width: `${playerReputation}%` }} />
+          </div>
+          <p className="mt-2 text-[10px] text-white/50">Based on your last {Math.min(3, reputationHistory.length)} result{reputationHistory.length === 1 ? "" : "s"}. Higher reputation unlocks prestigious countries.</p>
+        </div>
+
         <CountrySelect
           year={year}
           host={host}
@@ -792,6 +842,8 @@ export function GameBoard() {
           confirmLabel={t.countrySelect.enterRehearsals}
           onConfirm={beginSeason}
           language={language}
+          playerReputation={playerReputation}
+          countryStats={countryStats}
         />
 
         {historyModal}

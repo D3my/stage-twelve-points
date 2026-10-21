@@ -7,6 +7,9 @@ import {
   MIN_ROSTER,
   getCountry,
   getHostCity,
+  getCountryAccessRequirement,
+  getCountryBudget,
+  getCountryReputation,
   type Country,
   type Song,
   type Withdrawal,
@@ -44,10 +47,13 @@ export function CountrySelect({
   confirmLabel: string
   onConfirm: (ids: string[]) => void
   language?: Language
+  playerReputation?: number
+  countryStats?: Record<string, { budget: number; reputation: number }>
 }) {
   const [selected, setSelected] = useState<string[]>(initial)
 
   const t = translations[language]
+  const currentReputation = playerReputation ?? 20
 
   function toggle(id: string) {
     setSelected((prev) => {
@@ -122,8 +128,14 @@ export function CountrySelect({
       <div className="grid max-h-[240px] grid-cols-1 gap-2 overflow-y-auto pr-1">
         {participants.map((c) => {
           const isSel = selected.includes(c.id)
+          const stats = countryStats?.[c.id] ?? {
+            budget: getCountryBudget(c),
+            reputation: getCountryReputation(c),
+          }
+          const requirement = getCountryAccessRequirement(c)
+          const locked = currentReputation < requirement
           const disabled =
-            !isSel && selected.length >= MAX_ROSTER
+            !isSel && (selected.length >= MAX_ROSTER || locked)
 
           const song = songs[c.id]
 
@@ -162,12 +174,22 @@ export function CountrySelect({
                     {countryName}
                   </span>
 
-                  {song ? (
-                    <span className="shrink-0 rounded-full bg-white/10 px-1.5 py-0.5 text-[9px] font-medium text-white/60">
-                      {genreName}
-                    </span>
-                  ) : null}
+                  <span className="shrink-0 text-[9px] font-semibold text-cyan-200">
+                    €{stats.budget.toLocaleString()} · REP {stats.reputation}
+                  </span>
                 </span>
+
+                {locked ? (
+                  <span className="block text-[9px] font-semibold text-amber-300/80">
+                    Locked · requires REP {requirement}
+                  </span>
+                ) : null}
+
+                {song ? (
+                  <span className="shrink-0 rounded-full bg-white/10 px-1.5 py-0.5 text-[9px] font-medium text-white/60">
+                    {genreName}
+                  </span>
+                ) : null}
 
                 {song ? (
                   <span className="block truncate text-[10px] text-white/45">

@@ -224,6 +224,20 @@ export function getCountry(id: string): Country {
   return COUNTRIES.find((c) => c.id === id) as Country
 }
 
+export function getCountryBudget(country: Country): number {
+  return Math.round(country.strength * 1000)
+}
+
+export function getCountryReputation(country: Country): number {
+  return Math.max(20, Math.min(100, country.strength + 10))
+}
+
+export function getCountryAccessRequirement(country: Country): number {
+  if (country.strength >= 70) return 45
+  if (country.strength >= 60) return 30
+  return 20
+}
+
 // Countries with an automatic pass to the Grand Final.
 export const BIG_FIVE = new Set(["fr", "de", "it", "es", "gb"])
 
