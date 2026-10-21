@@ -33,6 +33,8 @@ export function CountrySelect({
   withdrawals,
   initial = [],
   confirmLabel,
+  playerReputation,
+  countryStats,
   onConfirm,
   language = "en",
 }: {

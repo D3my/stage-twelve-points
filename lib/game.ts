@@ -294,7 +294,7 @@ const LANG_TITLES: Record<string, string[]> = {
 
   fr: [
     "Cœur de Verre", "Sous la Pluie", "Éternité", "La Dernière Danse", "Lumière",
-    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Tempête",
+    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Temp��te",
     "Sans Limites", "Au-delà du Ciel", "Dernier Adieu", "Cœur Sauvage", "Danse avec Moi",
     "Sous les Étoiles", "L'Ombre et la Lumière", "Libre Comme l'Air", "À Jamais", "Avant l'Aube",
     "Un Nouveau Départ", "Regarde-moi", "Brûle Encore", "Le Vent du Nord", "À Contre-Courant",
@@ -786,7 +786,7 @@ export type Artist = {
   members: string[]
 }
 
-type Song = {
+export type Song = {
   title: string
   artist: Artist
   genre: Genre
