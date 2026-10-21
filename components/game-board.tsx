@@ -17,6 +17,7 @@ import {
   getHostCity,
   getCountryBudget,
   getCountryReputation,
+  isSuccessfulResult,
   getSeasonTitle,
   INITIAL_REPUTATION,
   getSeason,
@@ -441,6 +442,7 @@ export function GameBoard() {
   const [gameWins, setGameWins] = useState<Record<string, number>>({})
   const [playerReputation, setPlayerReputation] = useState(INITIAL_REPUTATION)
   const [reputationHistory, setReputationHistory] = useState<number[]>([])
+  const [previousPlacements, setPreviousPlacements] = useState<Record<string, number>>({})
   const [countryStats, setCountryStats] = useState<Record<string, { budget: number; reputation: number }>>(
     () => Object.fromEntries(COUNTRIES.map((country) => [country.id, {
       budget: getCountryBudget(country),
@@ -591,9 +593,23 @@ export function GameBoard() {
       ])
 
       const managedResults = managedEntries.map((entry) => {
+        const country = getCountry(entry.countryId)
         const placement = entry.qualified ? entry.position : entry.semiPosition
-        const delta = placement <= 3 ? 8 : placement <= 10 ? 3 : placement >= 20 ? -8 : -2
-        return { entry, delta }
+        const successful = isSuccessfulResult(
+          country,
+          entry,
+          previousPlacements[entry.countryId],
+        )
+        const delta = successful ? 6 : -6
+        return { entry, placement, delta }
+      })
+
+      setPreviousPlacements((previous) => {
+        const next = { ...previous }
+        for (const { entry, placement } of managedResults) {
+          next[entry.countryId] = placement
+        }
+        return next
       })
       const reputationDelta = managedResults.length
         ? Math.round(managedResults.reduce((sum, item) => sum + item.delta, 0) / managedResults.length)
@@ -658,6 +674,7 @@ export function GameBoard() {
     setGameWins({})
     setPlayerReputation(INITIAL_REPUTATION)
     setReputationHistory([])
+    setPreviousPlacements({})
     setCountryStats(Object.fromEntries(COUNTRIES.map((country) => [country.id, {
       budget: getCountryBudget(country),
       reputation: getCountryReputation(country),

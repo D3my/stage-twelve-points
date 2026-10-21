@@ -238,6 +238,30 @@ export function getCountryAccessRequirement(country: Country): number {
   return 20
 }
 
+export function isSuccessfulResult(
+  country: Country,
+  entry: Pick<Entry, "qualified" | "position" | "semiPosition">,
+  previousPlacement?: number,
+): boolean {
+  const placement = entry.qualified ? entry.position : entry.semiPosition
+
+  // Lower-prestige countries are rewarded for reaching the final or beating
+  // their own previous placement, rather than being held to elite-country standards.
+  if (country.strength < 50) {
+    return entry.qualified || (
+      previousPlacement !== undefined && placement < previousPlacement
+    )
+  }
+
+  // Medium-prestige countries have a Top 15 or Top 10 expectation.
+  if (country.strength < 70) {
+    return placement <= (country.strength >= 60 ? 10 : 15)
+  }
+
+  // High-prestige countries must challenge for the very top of the board.
+  return placement <= (country.strength >= 80 ? 1 : 5)
+}
+
 // Countries with an automatic pass to the Grand Final.
 export const BIG_FIVE = new Set(["fr", "de", "it", "es", "gb"])
 
@@ -294,7 +318,7 @@ const LANG_TITLES: Record<string, string[]> = {
 
   fr: [
     "Cœur de Verre", "Sous la Pluie", "Éternité", "La Dernière Danse", "Lumière",
-    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Temp����te",
+    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Temp������te",
     "Sans Limites", "Au-delà du Ciel", "Dernier Adieu", "Cœur Sauvage", "Danse avec Moi",
     "Sous les Étoiles", "L'Ombre et la Lumière", "Libre Comme l'Air", "À Jamais", "Avant l'Aube",
     "Un Nouveau Départ", "Regarde-moi", "Brûle Encore", "Le Vent du Nord", "À Contre-Courant",
