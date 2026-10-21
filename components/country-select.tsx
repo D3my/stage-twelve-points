@@ -10,6 +10,7 @@ import {
   getCountryAccessRequirement,
   getCountryBudget,
   getCountryReputation,
+  getMaxRosterForReputation,
   type Country,
   type Song,
   type Withdrawal,
@@ -56,6 +57,7 @@ export function CountrySelect({
 
   const t = translations[language]
   const currentReputation = playerReputation ?? 20
+  const selectionLimit = getMaxRosterForReputation(currentReputation)
 
   function toggle(id: string) {
     setSelected((prev) => {
@@ -63,7 +65,7 @@ export function CountrySelect({
         return prev.filter((x) => x !== id)
       }
 
-      if (prev.length >= MAX_ROSTER) {
+      if (prev.length >= selectionLimit) {
         return prev
       }
 
@@ -72,7 +74,7 @@ export function CountrySelect({
   }
 
   const canConfirm =
-    selected.length >= MIN_ROSTER && selected.length <= MAX_ROSTER
+    selected.length >= MIN_ROSTER && selected.length <= selectionLimit
 
   const hostCountry = getCountry(host)
   const hostCity = getHostCity(host, year)
@@ -109,7 +111,7 @@ export function CountrySelect({
       </div>
 
       <div className="flex items-center justify-center gap-1.5">
-        {Array.from({ length: MAX_ROSTER }).map((_, i) => (
+        {Array.from({ length: selectionLimit }).map((_, i) => (
           <span
             key={i}
             className="h-1.5 w-8 rounded-full transition-colors"
@@ -123,7 +125,7 @@ export function CountrySelect({
         ))}
 
         <span className="ml-2 text-[11px] font-medium text-white/50">
-          {selected.length}/{MAX_ROSTER}
+          {selected.length}/{selectionLimit}
         </span>
       </div>
 

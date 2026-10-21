@@ -18,6 +18,7 @@ import {
   getCountryBudget,
   getCountryReputation,
   getSeasonTitle,
+  INITIAL_REPUTATION,
   getSeason,
   runContest,
   seedStats,
@@ -438,7 +439,7 @@ export function GameBoard() {
   const [historyOpen, setHistoryOpen] = useState(false)
   const [palmaresOpen, setPalmaresOpen] = useState(false)
   const [gameWins, setGameWins] = useState<Record<string, number>>({})
-  const [playerReputation, setPlayerReputation] = useState(20)
+  const [playerReputation, setPlayerReputation] = useState(INITIAL_REPUTATION)
   const [reputationHistory, setReputationHistory] = useState<number[]>([])
   const [countryStats, setCountryStats] = useState<Record<string, { budget: number; reputation: number }>>(
     () => Object.fromEntries(COUNTRIES.map((country) => [country.id, {
@@ -598,7 +599,7 @@ export function GameBoard() {
         ? Math.round(managedResults.reduce((sum, item) => sum + item.delta, 0) / managedResults.length)
         : 0
       setReputationHistory((previous) => [...previous, reputationDelta].slice(-3))
-      setPlayerReputation((previous) => Math.max(0, Math.min(100, previous + reputationDelta)))
+      setPlayerReputation((previous) => Math.max(INITIAL_REPUTATION, Math.min(100, previous + reputationDelta)))
       setCountryStats((previous) => {
         const next = { ...previous }
         for (const { entry, delta } of managedResults) {
@@ -655,7 +656,7 @@ export function GameBoard() {
     setTrophies([])
     setHistory([])
     setGameWins({})
-    setPlayerReputation(20)
+    setPlayerReputation(INITIAL_REPUTATION)
     setReputationHistory([])
     setCountryStats(Object.fromEntries(COUNTRIES.map((country) => [country.id, {
       budget: getCountryBudget(country),
@@ -842,7 +843,7 @@ export function GameBoard() {
           confirmLabel={t.countrySelect.enterRehearsals}
           onConfirm={beginSeason}
           language={language}
-          playerReputation={playerReputation}
+          playerReputation={Math.max(INITIAL_REPUTATION, playerReputation)}
           countryStats={countryStats}
         />
 

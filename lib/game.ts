@@ -294,7 +294,7 @@ const LANG_TITLES: Record<string, string[]> = {
 
   fr: [
     "Cœur de Verre", "Sous la Pluie", "Éternité", "La Dernière Danse", "Lumière",
-    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Temp��te",
+    "Envole-moi", "Nuit Blanche", "Feu Follet", "Mon Silence", "Temp����te",
     "Sans Limites", "Au-delà du Ciel", "Dernier Adieu", "Cœur Sauvage", "Danse avec Moi",
     "Sous les Étoiles", "L'Ombre et la Lumière", "Libre Comme l'Air", "À Jamais", "Avant l'Aube",
     "Un Nouveau Départ", "Regarde-moi", "Brûle Encore", "Le Vent du Nord", "À Contre-Courant",
@@ -2064,6 +2064,14 @@ export const START_YEAR = 2027
 export const START_HOST = "bg" 
 export const MIN_ROSTER = 1
 export const MAX_ROSTER = 4
+export const INITIAL_REPUTATION = 20
+
+export function getMaxRosterForReputation(reputation: number): number {
+  if (reputation >= 75) return MAX_ROSTER
+  if (reputation >= 60) return 3
+  if (reputation >= 45) return 2
+  return MIN_ROSTER
+}
 
 export function getSeasonTitle(year: number, hostId: string): string {
   const host = getCountry(hostId)
